@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Color change animation</title>
+	<style type="text/css">
+		body{
+			background-color: gray;
+		}
+	</style>
+</head>
+<body>
+	<h1>Hola!!!!</h1>
+</body>
+<script type="text/javascript">
+	window.onload = function(){
+		let bodyElement = document.querySelector("body");
+		// color codes available at http://cloford.com/resources/colours/500col.htm
+		let colors = ["#7FDBFF","#3D9970","#DDDDDD","#FF4136","#01FF70","#001f3f","#39CCCC","#1BEF95","#111111","#F012BE","#85144b","#05A461","#EE086A","#66D384","#F86D0C","#98440A","#FA0303"];
+		// Returns a random color code from the colors array
+		function getColor(){
+			let index = Math.floor(Math.random()*colors.length);
+			// console.log("Now index ",index,"and color",colors[index]);
+			return colors[index];
+		}
+		let changeColor = function changeColor(){
+			bodyElement.style.background = getColor();
+		};
+		// changeColor is called every half a second
+		// setInterval is like an infinite loop that gets executed with in the given interval
+		window.setInterval(changeColor,500);
+	};
+</script>
+</html>

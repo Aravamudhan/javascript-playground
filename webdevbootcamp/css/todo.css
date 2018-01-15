@@ -1,0 +1,15 @@
+li {
+    border: 2px solid red;
+}
+
+#special {
+    background-color: green;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+ul li.mouseover{
+	color: #FF1493;
+	background-color:gray;
+}

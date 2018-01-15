@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Todo list</title>
+    <link rel="stylesheet" type="text/css" href="../css/todo.css">
+</head>
+
+<body>
+    <h1>Todo list</h1>
+    <ul>
+        <li class="completed">
+            <input type="checkbox" name="">Walk Rusty
+        </li>
+        <li class="completed">
+            <input type="checkbox" name="">Buy milk
+        </li>
+        <li id="special">
+            <input type="checkbox" name="">Buy Groceries
+        </li>
+    </ul>
+</body>
+<script type="text/javascript">
+var lis = document.querySelectorAll("li");
+var mouseoverEvent = function(e) {
+    // this is item on which the event was triggered on
+    this.classList.add("mouseover");
+};
+var mouseoutEvent = function(e) {
+  this.classList.remove("mouseover");
+};
+lis.forEach(function(value) {
+    console.log(value);
+    value.addEventListener("mouseover", mouseoverEvent);
+    value.addEventListener("mouseout", mouseoutEvent);
+});
+</script>
+
+</html>

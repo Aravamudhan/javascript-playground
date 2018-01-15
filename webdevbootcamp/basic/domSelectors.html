@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dom demo</title>
+</head>
+<body>
+	<h1 class="title">Welcome to demo page</h1>
+	<h1>Hello!!</h1>
+	<h1>Goodbye!!</h1>
+	<ul>
+		<li>Item 1</li>
+		<li>Item 2</li>
+		<li>Item 3</li>
+	</ul>
+	<button class="toggle-button">Click me!!</button>
+	<p class="toggle-area">This is me! Ready to toggle!!</p>
+	<button class="toggle-button-css">Click me too!!</button>
+	<p class="toggle-area-css">This is me! Ready to roll!!</p>
+</body>
+<script type="text/javascript">
+	window.onload = function(){
+		// querySelector takes a css selector and returns the 1st match
+		var h1Tag = document.querySelector("h1");
+		console.log(h1Tag);
+		var liTags = document.querySelectorAll("li");
+		console.log(liTags);
+		// change the color of title
+		let title = document.querySelector(".title");
+		title.addEventListener("click",function(){
+			title.style.color = "#B0171F";
+		});
+		// log a message on clicking ul
+		document.querySelector("ul").addEventListener("click",function(){
+			console.log("You clicked the ul");
+		});
+		// attaching listener to li and chaning their color on clicking on them
+		let lis = document.querySelectorAll("li");
+		lis.forEach(function(tag){
+			tag.addEventListener("click",function(){
+				// The this points to the element that was clicked here
+				this.style.color = "#87CEFF";
+			});
+		});
+		// color toggle
+		let toggleB = document.querySelector(".toggle-button");
+		let toggleP = document.querySelector(".toggle-area");
+		let colored = false;
+		toggleB.addEventListener("click",function(){
+			if(colored==true){
+				toggleP.style.backgroundColor = "white";
+				colored = false;
+			}else{
+				toggleP.style.backgroundColor = "#8B0000";
+				colored = true;
+			}
+		});
+		let toggleBCSS = document.querySelector(".toggle-button-css");
+		let togglePCSS = document.querySelector(".toggle-area-css");
+		toggleBCSS.addEventListener("click",function(){
+			// If the class color is present, it is removed. If not, then added.
+			togglePCSS.classList.toggle("color");
+		});
+
+	};
+</script>
+<style type="text/css">
+	.color{
+		background-color: #EE3A8C;
+	}
+</style>
+</html>

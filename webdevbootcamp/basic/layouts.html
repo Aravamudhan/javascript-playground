@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Layouts</title>
+    <style type="text/css">
+    h2 {
+        text-align: center;
+        color: green;
+    }
+
+    .simple,
+    .fancy {
+        background-color: purple;
+        color: white;
+        width: 600px;
+        height: 100px;
+        margin: 10px auto;
+    }
+
+    .fancy {
+        border: 5px solid black;
+        padding: 10px;
+    }
+
+    .fancy-box {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <h2>Box model</h2>
+    <div class="simple">This is a simple div without border or padding</div>
+    <div class="fancy">This is same as the div above, except it has border and padding. Which makes it look bigger. To handle this one has to calculate the width and heigh by reducing the padding and the border</div>
+    <div class="fancy fancy-box">This div also has the same dimensions as the divs above. But this has the property box-sizing:border-box. Which makes it intuitive in a way that the border and padding does not increase the size of a box.</div>
+    <h2>Position</h2>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+p {
+    /*content - width and height*/
+    width: 50%; /*50% of parent element*/
+    /*border*/
+    border: 2px solid blue;
+    /*padding - space between element and the border*/
+    padding: 10px;
+    /*margin - space outside the border*/
+    /*top right bottom left*/
+    /*top/bottom left/right*/
+    margin:0 auto 20px auto;
+}

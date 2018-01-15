@@ -1,0 +1,25 @@
+body {
+    /*background: url("http://truecompanionstraining.com/wp-content/uploads/good-dog-school.jpg");*/
+    background-repeat: no-repeat;
+}
+
+h1 {
+    /*first 2 digits specify the red, next two green and final two are blue*/
+    /*Full red, green and blue gives white*/
+    /*This is red color*/
+    /*This is a hexadecimal system for colors*/
+    color: #FF0000;
+    /*width, color, style*/
+    border: purple 5px solid;
+}
+
+h2 {
+    /*The RGB system is base 10*/
+    color: rgb(100, 0, 100);
+    background: rgb(250, 100, 50);
+}
+
+li {
+    /*The 'a' means alpha. This is an option for transparency */
+    color: rgba(0, 0, 150, 0.8);
+}

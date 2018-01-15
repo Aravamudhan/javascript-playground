@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration form</title>
+</head>
+
+<body>
+    <h1>Registration</h1>
+    <form>
+        <div>
+            <!-- The 'name' attribute is used for identifying the data that is typed/selected/chosen in a specific input field.
+            When a form is submitted, the data are identified using their name attributes  -->
+            <label for="firstname">First Name:</label>
+            <input type="text" name="firstname" id="firstname" placeholder="John" required>
+            <label for="lastname">Last Name:</label>
+            <input type="text" name="lastname" id="lastname" placeholder="Smith" required>
+        </div>
+        <div>
+            <label for="male">Male</label>
+            <input id="male" type="radio" name="gender" value="male">
+            <label for="female">Female</label>
+            <input id="female" type="radio" name="gender" value="female">
+            <label for="other">Other</label>
+            <input id="other" type="radio" name="gender" value="other">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="Your email" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Your password" required title="Password must be between 5 and 10 characters" pattern=".{5,10}">
+        </div>
+        <div>
+            <label>Birthday:
+                <select name="month">
+                    <option value="0">Month</option>
+                    <option value="1">Jan</option>
+                    <option value="2">Feb</option>
+                    <option value="3">March</option>
+                </select>
+                <select name="day">
+                    <option value="0">Day</option>
+                    <option value="1">01</option>
+                    <option value="2">02</option>
+                    <option value="3">03</option>
+                </select>
+                <select name="year">
+                    <option>Year</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                    <option>2015</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label for="terms">I agree to the terms and conditions</label>
+            <input type="checkbox" name="terms" id="terms">
+        </div>
+        <input type="submit">
+    </form>
+</body>
+
+</html>

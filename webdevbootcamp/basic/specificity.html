@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Specificity</title>
+    <style type="text/css">
+    /*When multiple styles are applied to a same element, a specificity value is calculated. Higher the value, better the chances are for the style to be applied to an element*/
+    /*Any type selector and pseudo elements such as ::before get specificity - 0*/
+
+    body {
+        color: red;
+    }
+
+    div {
+        color: blue;
+    }
+
+    li {
+        color: orange;
+    }
+    /*class selectors and pseduo classes such as :hover - 1*/
+
+    .test {
+        color: purple;
+    }
+    /*id selectors 2*/
+
+    #first {
+        color: green;
+    }
+
+    #second {
+        color: pink;
+    }
+    /*if multiple selectors are present in a style, the specifity value is calculated and highest among them wins*/
+    /*pseudo class - an information that lies outside the dom tree. Hover is something that is not part of dom tree, but a state that is outside the dom tree. Any such concept is represented by pseudo class*/
+    /*pseduo elements - These are created to access information that is not part of the source document (i.e.)generated content.*/
+    </style>
+</head>
+
+<body>
+    <p>Hello world!</p>
+    <div class="test">We are testing specificity</div>
+    <div>Hello world, again!!</div>
+    <ul>
+        <li id="first">John</li>
+        <li>Paul</li>
+        <li>George</li>
+        <li>Ringo</li>
+    </ul>
+</body>
+
+</html>

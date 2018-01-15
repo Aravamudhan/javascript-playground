@@ -1,0 +1,46 @@
+/*font-family*/
+p{
+	font-family: Arial; /*"Arial" is also fine*/
+}
+h1{
+	font-family: "Arial Narrow";
+}
+/*font-size*/
+h1{
+	font-size: 50px;
+}
+p{
+	font-size: 20px;
+}
+p label{
+	/*em is a dynamic value. This is based on the font-size of the element's parent. If the parent is 20px, then 1em is 20px*/
+	font-size: 2em; 
+}
+/*font-weight*/
+p:nth-of-type(1){
+	/*Some fonts allow using numeric values 100,200,300...900*/
+	/*font weights available are dependent upon the font-family we use*/
+	font-weight: bold;
+}
+/*line-height*/
+p:nth-of-type(2){
+	line-height: 2;
+}
+/*text-align*/
+p:nth-of-type(3){
+	text-align: center;
+}
+/*text-decoration*/
+p:nth-of-type(4){
+	text-decoration: overline;
+}
+/*Using Google fonts*/
+p:nth-of-type(5){
+	font-family: 'Pangolin', cursive;
+}
+p:nth-of-type(6){
+	font-family: 'Courgette', cursive;
+}
+.intro{
+	font-family: 'Calligraffitti', cursive;
+}

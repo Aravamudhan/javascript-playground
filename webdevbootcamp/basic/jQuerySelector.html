@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery methods</title>
+</head>
+
+<body>
+    <h1>jQuery methods demo page</h1>
+    <section style="border:1px solid black;margin-bottom: 8px;">
+        <div>Div 1</div>
+        <div class="highlight">Div 2</div>
+        <div id="third">Div 3</div>
+        <div class="highlight">Div 4</div>
+    </section>
+    <input type="text" name="yourName" placeholder="Your name">
+    <ul>
+        <li>Red</li>
+        <li>Green</li>
+        <li>Yellow</li>
+    </ul>
+    <button id="fader">Fade and remove</button>
+    <button id="fadeout">Fade out</button>
+    <button id="fadein">Fade in</button>
+    <button id="fadet">Fade toggle</button>
+    <button id="slided">Slide down</button>
+    <button id="slideu">Slide up</button>
+    <button id="slidet">Slide toggle</button>
+
+    <div class="container">
+        <div class="effect">Fade me</div>
+        <div class="effect">Really, fade me</div>
+        <div class="effect">I am fadinggggggg</div>
+    </div>
+</body>
+<style type="text/css">
+.container{
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: auto;
+}
+.effect {
+    height: 100px;
+    width: 100px;
+    background-color: teal;
+    margin: 10px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    // Selectors
+    $('section div').css({ 'background-color': 'purple', 'color': 'white' });
+    $('div.highlight').css('width', '200px');
+    $('div#third').css('border', '1px solid orange');
+    $('section div').first().css('color', 'pink');
+    // Events
+    $('#third').on('click', function() {
+        alert('I am 3rd');
+    });
+    $('li').on('click', function() {
+        console.log('You have clicked ', $(this));
+        console.log('The content is', $(this).text());
+    });
+    // When ever some one types something in the input with the attribute name 'yourName', we
+    // capture that log the data key that is typed
+    // keypress is triggered when a character/key is typed (i.e.) a viewable character, unlike keydown where
+    // the event is triggered even when pressing a key like shift
+    // The 'on' listener will add event listeners to the elements that may be added in the future too
+    $('input[name="yourName"]').on('keypress', function(e) {
+        console.log(e.originalEvent.key, 'is typed');
+    });
+    //Effects
+    $('#fader').on('click', function() {
+        $('.effect').fadeOut(1000,function(){
+        	$(this).remove();
+        });
+    });
+    $('#fadeout').on('click', function() {
+        $('.effect').fadeOut(1000);
+    });
+    $('#fadein').on('click',function(){
+    	$('.effect').fadeIn(1000);	
+    });
+    $('#fadet').on('click',function(){
+    	$('.effect').fadeToggle(1000);	
+    });
+    $('#slided').on('click',function(){
+    	$('.effect').slideDown(1000);	
+    });
+    $('#slideu').on('click',function(){
+    	$('.effect').slideUp(1000);	
+    });
+    $('#slidet').on('click',function(){
+    	$('.effect').slideToggle(1000);	
+    });
+
+});
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Inputs demo</title>
+</head>
+
+<body>
+    <p>Do you prefer cats or dogs?</p>
+    <form>
+        <!-- Without the name attribute, the selected/typed/chosen values are not sent along with the request-->
+        <label for="dogs">Dogs:</label>
+        <input id="dogs" type="radio" name="petchoice" value="dogs">
+        <label for="cats">Cats:</label>
+        <input id="cats" type="radio" name="petchoice" value="cats">
+        <p>What's your favourite color?</p>
+        <!-- Whatever option is selected that will be set as the value of the key 'color'. 'name' is the key and selected option is the 'value'-->
+        <select name="color">
+            <option>Red</option>
+            <option>Orange</option>
+            <option>Yellow</option>
+        </select>
+        <p>What's your mood now?</p>
+        <select name="mood">
+            <option value="happy">:-)</option>
+            <option value="sad">:-(</option>
+            <option value="neutral">:-|</option>
+        </select>
+        <p>Write about you</p>
+        <textarea name="paragraph" rows="=5" cols="5"></textarea>
+        <button>Go!!</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bootstrap Grid System</title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    .pink {
+        background-color: pink;
+        border: 2px solid purple;
+    }
+    .blue{
+    	background-color: skyblue;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Bootstrap grid system must be inside a 'container' -->
+    <!-- The grid system has 12 units across (i.e.) 12 columns per row. We can allocate the 12 units in any way we want -->
+    <!-- We can allocate one item per column or 6 columns for every item and so on -->
+    <!-- sizes - large, medium, small and extra small -->
+    <div class="container">
+        <div class="row">
+            <!-- Here the 12 units are allocated into 3 divs of 2,8,2 units respectively -->
+            <div class="col-lg-2 pink">COLUMN LARGE 2</div>
+            <div class="col-lg-8 pink">COLUMN LARGE 8</div>
+            <div class="col-lg-2 pink">COLUMN LARGE 2</div>
+        </div>
+        <!-- 		<div class="row">
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+			<div class="col-lg-1 col-md-2 pink">COL LG 1</div>
+		</div> -->
+        <h1>4 columns to start withcol-md-3 </h1>
+        <div class="row">
+            <!-- At the medium point, 3 columns for every item. This means that 4 items per row. When the small point is reached, 6 columns for every item. This means that 2 items per row. Here the large point is not specified, but bootstrap automaticallyn -->
+            <div class="col-md-3 col-sm-6 pink">Some stuff</div>
+            <div class="col-md-3 col-sm-6 pink">Some stuff</div>
+            <div class="col-md-3 col-sm-6 pink">Some stuff</div>
+            <div class="col-md-3 col-sm-6 pink">
+            	<div class="row">
+            		<div class="col-lg-6 blue">1st half</div>
+            		<div class="col-lg-6 blue">2nd half</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

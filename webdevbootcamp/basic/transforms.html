@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transforms</title>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        position: relative;
+        /*vh - viewport height
+        vw - viewport width*/
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .container {
+        position: relative;
+        width: 33%;
+        height: 33%;
+        border: 1px solid black;
+        box-sizing: border-box;
+        float: left;
+        /*The following 3 lines make any child element centered*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .heading {
+        align-self: flex-start;
+        position: relative;
+    }
+
+    .original {
+        margin: 1rem;
+        width: 30%;
+        height: 30%;
+        background: gray;
+    }
+
+    .box {
+        width: 100%;
+        height: 100%;
+        background: #2db34a;
+        /*The following lines make the child elements centered*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .square {
+        width: 7rem;
+        height: 7rem;
+        background: #2db34a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-header {
+        text-align: center;
+        background-color: #223c65;
+        color: white;
+        height: 2rem;
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    /*The 2D cube*/
+
+    .cube {
+        position: relative;
+        top: -5rem;
+        left: -5rem;
+    }
+
+    .side {
+        height: 5rem;
+        position: absolute;
+        width: 5rem;
+        color: #E0FFFF;
+    }
+
+    .top {
+        background: #8B2252;
+        transform: rotate(-45deg) skew(15deg, 15deg);
+    }
+
+    .left {
+        background: #CD3278;
+        transform: rotate(15deg) skew(15deg, 15deg) translate(-50%, 100%);
+    }
+
+    .right {
+        background: #EE3A8C;
+        transform: rotate(-15deg) skew(-15deg, -15deg) translate(50%, 100%);
+    }
+
+    .spin {
+        cursor: pointer;
+        transform-style: preserve-3d;
+    }
+
+    .spin:hover {
+        animation: spin 5s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotateY(0deg);
+        }
+        100% {
+            transform: rotateY(360deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <header class="section-header"> 2D Transforms</header>
+    <section class="container">
+        <header class="heading">Rotate</header>
+        <article class="original">
+            <article class="box ro" style="transform: rotate(30deg);transform-origin: top right;">top right</article>
+        </article>
+        <article class="original">
+            <article class="box ro" style="transform: rotate(30deg);transform-origin: bottom left;">bottom left</article>
+        </article>
+        <article class="original">
+            <article class="box ro" style="transform: rotate(30deg);">default(middle)</article>
+        </article>
+    </section>
+    <section class="container">
+        <header class="heading">Skew</header>
+        <article class="original">
+            <article class="box" style="transform: skewX(15deg);">skewX:15deg</article>
+        </article>
+        <article class="original">
+            <article class="box" style="transform: skewY(10deg);">skewY:10deg</article>
+        </article>
+        <article class="original">
+            <article class="box" style="transform: skew(15deg,10deg);">skew(15deg,10deg)</article>
+        </article>
+    </section>
+    <section class="container">
+        <header class="heading">Translate and scale</header>
+        <article class="original">
+            <article class="box" style="transform: translate(50%,50%);">translate(50%,50% )</article>
+        </article>
+        <article class="original">
+            <article class="box" style="transform: scale(0.90);">scale:0.9</article>
+        </article>
+    </section>
+    <section class="container">
+        <header class="heading">2D Cube demo</header>
+        <div class="cube spin">
+            <figure class="side top">1</figure>
+            <figure class="side left">2</figure>
+            <figure class="side right">3</figure>
+        </div>
+    </section>
+    <header class="section-header" style="clear:both"> 3D Transforms</header>
+</body>
+
+</html>

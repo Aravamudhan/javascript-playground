@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dom selector exercise</title>
+</head>
+<body>
+	<h1>I am an h1!</h1>
+	<p id="first" class="special">Hello</p>
+	<p class="special">Goodbye!!</p>
+	<p>Hi again!</p>
+	<p id="last">Goodbye again!</p>
+</body>
+<script type="text/javascript">
+	window.onload=function(){
+		// Different ways of selecting an element
+		let colorFirst = document.getElementById("first");
+		colorFirst.style.color = "#1BEF95";
+		let backgroundFirst = document.getElementsByClassName("special");
+		backgroundFirst[0].style.backgroundColor = "#3D9970";
+		let querySel = document.querySelector("body p");
+		console.log(querySel);
+		// Select all p tags
+		let querysSel = document.querySelectorAll("p");
+		console.log(querysSel[0]);
+		// set the color of all p tags
+		querysSel.forEach(function(tag,index){
+			setTimeout(function(){
+				// textContent returns all the string in a tag by discarding all the HTML
+				console.log("Changing the style of a tag with content",tag.textContent);
+				tag.style.color = "#1BEF95";
+			},3000);
+		});
+	};
+</script>
+</html>
