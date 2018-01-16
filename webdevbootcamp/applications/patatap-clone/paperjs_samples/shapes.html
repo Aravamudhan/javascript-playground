@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Circles</title>
+    <style type="text/css">
+    	*{
+    		margin: 0;
+    		padding: 0;
+    	}
+    	html,body{
+    		width: 100vw;
+    		height: 100vh;
+    		overflow: hidden;
+    		background-color: black;
+    	}
+    	#myCanvas{
+    		width: 100vw;
+    		height: 100vh;
+    	}
+    </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-full.min.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+		var max = new Point(view.size.width,view.size.height);
+        var circles = [];
+        function onKeyDown(event) {
+            var r = max * Point.random();
+            var c = new Path.Circle({
+                    center: r,
+                    radius: 10,
+                    fillColor: 'purple'
+                });
+            circles.push(c);
+        }
+        var rec = new Path.Rectangle({
+            point:[75,75],
+            size:[75,75],
+            fillColor:'red'
+        });
+        var cir = new Path.Circle({
+            center: new Point(50,50),
+            radius: 10,
+            fillColor: 'purple'
+        });
+        function onFrame(event){
+            rec.rotate(1);
+            circles.forEach(function(item){
+                item.fillColor.hue +=1;
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+
+</html>

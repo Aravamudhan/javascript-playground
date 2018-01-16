@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Circles</title>
+    <style type="text/css">
+    	*{
+    		margin: 0;
+    		padding: 0;
+    	}
+    	html,body{
+    		width: 100vw;
+    		height: 100vh;
+    		overflow: hidden;
+    		background-color: black;
+    	}
+    	#myCanvas{
+    		width: 100vw;
+    		height: 100vh;
+    	}
+    </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.7/howler.core.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-full.min.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+		var circles = [];
+		var max = new Point(view.size.width,view.size.height);
+		function onKeyDown(event) {
+			if(keyData[event.key]){
+				var r = max * Point.random();
+            	var fillColor = keyData[event.key].color;
+            	var c = new Path.Circle({
+                    center: r,
+                    radius: 150,
+                    fillColor: fillColor
+                });
+            	circles.push(c);
+            	keyData[event.key].sound.play();
+			}
+        }
+		function onFrame(event){
+			circles.forEach(function(item,i){
+                item.fillColor.hue +=1;
+                item.scale(0.9);
+                if(item.area<1){
+                	circles[i].remove();
+                	circles.splice(i,1)
+	            }
+            });
+		}
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+
+</html>
