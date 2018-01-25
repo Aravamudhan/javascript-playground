@@ -1,0 +1,25 @@
+<% include partials/top %>
+
+<h1 style="text-align:center;">Products page</h1>
+<table class="product-table">
+    <tr class="product-head">
+        <th>Product name</th>
+        <th>Product price</th>
+        <th>Product category</th>
+    </tr>
+    <%products.forEach(product=>{%>
+    <tr class="product-item">
+        <td>
+            <%=product.name%>
+        </td>
+        <td>
+            <%=product.price%>
+        </td>
+        <td>
+            <%=product.category%>
+        </td>            
+    </tr>
+    <%});%>
+</table>
+
+<% include partials/bottom %>
