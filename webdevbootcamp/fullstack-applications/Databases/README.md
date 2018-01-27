@@ -30,4 +30,4 @@ const Cat = mongoose.model('Cat',catSchema);
 2. Connect to a mongodb database
 3. Create a schema
 4. Based on that schema create a model object
-5. Perform the operations like creat, find on the model object
+5. Perform the operations like create, find on the model object
