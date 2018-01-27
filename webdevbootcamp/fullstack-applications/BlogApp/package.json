@@ -1,7 +1,7 @@
 {
-  "name": "yelp-camp",
-  "version": "2.0.0",
-  "description": "YelpCamp version 2",
+  "name": "blog-app",
+  "version": "0.0.1",
+  "description": "A blogging application",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,8 +10,11 @@
   "author": "amudhan",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-sanitizer": "^1.0.3",
+    "method-override": "^2.3.10",
     "mongoose": "^5.0.1",
     "properties-reader": "0.0.16"
   }

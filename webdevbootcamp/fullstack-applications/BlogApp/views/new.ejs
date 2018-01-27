@@ -1,0 +1,25 @@
+<% include layouts/header %>
+
+<div class="ui main text container segment">
+    <div class="ui huge header">New blog</div>
+    <form method="POST" action="/blogs" class="ui form">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="blog[title]" placeholder="title"></input>    
+        </div>
+        <div class="field">
+            <label>Image</label>
+            <input type="text" name="blog[image]" placeholder="image"></input>
+        </div>
+        <div class="field">
+            <label>Blog content</label>
+            <textarea name="blog[content]"></textarea>
+        </div>
+        <div class="item button-container">
+            <button class="ui primary button left-button">Create</button>
+            <a href="/" class="ui button teal left-button">Back</a>
+        </div>
+    </form>
+</div>
+
+<% include layouts/footer %>
