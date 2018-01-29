@@ -1,0 +1,14 @@
+{
+  "name": "associations",
+  "version": "0.0.1",
+  "description": "Database associations",
+  "dependencies": {
+    "mongoose": "^5.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "amudhan",
+  "license": "ISC"
+}
