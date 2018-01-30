@@ -1,6 +1,6 @@
 ## Associations
 * Associations are needed to describe/store data when multiple entities are related to each other.
-# Embedding data
+## Embedding data
 * When one model is inside another model
 * For example,
 ```
@@ -16,7 +16,7 @@
         posts:[postSchema] // Embedded association
     });
 ```
-# Referrencing data
+## Referrencing data
 * When one model references another model through an identifier
 * For example,
 ```
