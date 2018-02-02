@@ -30,55 +30,71 @@ function defaultValues() {
 	foo(undefined, 100);
 }
 function destructuring() {
-	function foo() {
-		return ['Apple', 'Orange', 'Pineapple'];
+	console.log("Starting moreDestructuring----------");
+	{
+		console.log("----- Directly assigning an object returned from a function -----");
+		function foo() {
+			return ['Apple', 'Orange', 'Pineapple'];
+		}
+		let [x, y, z] = foo();
+		console.log("The function call foo():", foo());
+		console.log("let [x, y, z] = foo();x,y,z:", x, y, z);
+		let name = "Fruits";
+		let obj = {
+			name, foo
+		};
+		console.log("let obj = { name, foo }:", obj);
 	}
-	let [x, y, z] = foo();
-	console.log(x, y, z);
-	let name = "Fruits";
-	let obj = {
-		name, foo
-	};
-	console.log(obj.name, obj.foo());
-	function bar() {
-		return { a1: 101, a2: 102, a3: 103 };
+	{
+		console.log("----- The source:target pattern -----");
+		function bar() {
+			return { a1: 101, a2: 102, a3: 103 };
+		}
+		// Here the a1,a2 and a3 are source and l,m and n are target
+		// Unlike the usual target:source pattern, in destructuring it is source:target
+		let { a1: l, a2: m, a3: n } = bar();
+		console.log("bar() returns", bar());
+		console.log("The result of let { a1: l, a2: m, a3: n } = bar();l,m,n:", l, m, n);
+		// When ignoring the let we have to surround the expression with parenthesis
+		// this is equivalent to an assignment expression without the var,let or const keyword
+		({ a1: l1, a2: l2, a3: l3 } = bar());
+		console.log("The result of ({ a1: l1, a2: l2, a3: l3 } = bar());l1,l2,l3:", l1, l2, l3);
+		let o1 = { a: 1, b: 2, c: 3 },
+			o2 = {};
+		// Here the pattern is "source:target" instead of the usual "target:source"
+		// o1 is the provider and from the provider, we take properties, in our case they are a,b,c
+		// finally they are assigned to the targets, in our case they are o2.x,o2.y.o2.z
+		({ a: o2.x, b: o2.y, c: o2.z } = o1);
+		console.log("o1:", o1);
+		console.log("( { a: o2.x, b: o2.y, c: o2.z } = o1 );  o2:", o2);
 	}
-	// Here the a1,a2 and a3 are source and l,m and n are target
-	// Unlike the usual target:source pattern, in destructuring it is source:target
-	let { a1: l, a2: m, a3: n } = bar();
-	console.log(l, m, n);
-	// When ignoring the let we have to surround the expression with parenthesis
-	// this is equivalent to an assignment expression without the var,let or const keyword
-	({ a1: l1, a2: l2, a3: l3 } = bar());
-	console.log(l1, l2, l3);
-	let person = {
-		fullName: "James Bond",
-		age: "30",
-		agentId: "007"
-	};
-	({ fullName, age, agentId } = person);
-	console.log("Destructuring an object into distinct values:", fullName, age, agentId);
-	let o1 = { a: 1, b: 2, c: 3 },
-		o2 = {};
-	// Here the pattern is "source:target" instead of the usual "target:source"
-	// o1 is the provider and from the provider, we take properties, in our case they are a,b,c
-	// finally they are assigned to the targets, in our case they are o2.x,o2.y.o2.z
-	({ a: o2.x, b: o2.y, c: o2.z } = o1);
-	console.log("-----Inverting target:source pattern-----");
-	console.log("o1:", o1);
-	console.log("( { a: o2.x, b: o2.y, c: o2.z } = o1 ); results in o2:", o2);
-	console.log("-----");
-	// console.log( o2.x, o2.y, o2.z );
-	let x1 = 10, y1 = 20;
-	// swapping variables without a temp
-	console.log("Before:", x1, y1);
-	[y1, x1] = [x1, y1];
-	console.log("After:", x1, y1);
-	// The empty slot notifies the engine to use the default value
-	let [greeting = "Hello", greetingName = "World!"] = [, "007!"];
-	console.log("Destructuring and default value:", greeting, greetingName);
+	{
+		console.log("----- Destructuring an object into distinct values -----");
+		let person = {
+			fullName: "James Bond",
+			age: "30",
+			agentId: "007"
+		};
+		({ fullName, age, agentId } = person);
+		console.log("({ fullName, age, agentId } = person);fullName, age, agentId:", fullName, age, agentId);
+	}
+	{
+		let x1 = 10, y1 = 20;
+		console.log("-----Swapping variables without a temp-----");
+		console.log("Before:", x1, y1);
+		console.log("Doing [y1, x1] = [x1, y1];");
+		console.log("After:", x1, y1);
+	}
+	{
+		console.log("---- Destructuring and default values -----");
+		// The empty slot notifies the engine to use the default value
+		let [greeting = "Hello", greetingName = "World!"] = [, "007!"];
+		console.log("let [greeting = 'Hello', greetingName = 'World!'] " +
+			"= [, '007!'];greeting, greetingName :", greeting, greetingName);
+	}
 }
-function unpacking() {
+function moreDestructuring() {
+	console.log("Starting moreDestructuring----------");
 	{
 		console.log("----- Object to function argument -----");
 		function userId({ id }) {
@@ -192,8 +208,47 @@ function unpacking() {
 		console.log("The values extracted assigned to distinct variables");
 		console.log(x1, x2, y, y1, y2, z);
 	}
+	{
+		console.log("----- Default value assignment and destructuring -----");
+		function getNumberArray() {
+			return [100, 200, 300];
+		}
+		let [x1 = 1, x2 = 2, x3 = 3, x4 = 4, x5 = 5] = getNumberArray();
+		console.log("let [x1=1,x2=2,x3=3,x4=4,x5=5] = getNumberArray();x1,x2,x3,x4,x5:", x1, x2, x3, x4, x5);
+		function getWordObjet() {
+			return {
+				name1: "James",
+				name2: "Felix"
+			};
+		}
+		// We are taking the object received from the getWordObject and assigning the properties
+		// name1, name2 and name3 to agent1,2,3. Now if any of the name1,2,3 are not available
+		// we have a default value 'MIA' assigned to the agent1,2,3 variables.
+		let { name1: agent1 = 'MIA', name2: agent2 = 'MIA', name3 = agent3 = 'MIA' } = getWordObjet();
+		console.log("Object destructuring with default values");
+		console.log("let { name1: agent1='MIA', name2: agent2='MIA', name3: agent3='MIA' }" +
+			"= getWordObjet(); agent1, agent2, agent3 :", agent1, agent2, agent3);
+	}
+	{
+		// Confusing destructuring
+		// Avoid this kind of complexity
+		let x = 200, y = 300, z = 100;
+		var o1 = { x: { y: 42 }, z: { y: z } };
+
+		({ y: x = { y: y } } = o1);
+		({ z: y = { y: z } } = o1);
+		({ x: z = { y: x } } = o1);
+		console.log( x.y, y.y, z.y );
+
+		let m = 20;
+		let o ={
+			l:100
+		};
+		({l:m={a:300}}=o);
+		console.log(m);
+	}
 }
 // spreadAndGather();
 // defaultValues();
-// destructuring();
-unpacking();
+destructuring();
+moreDestructuring();
