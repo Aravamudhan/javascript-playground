@@ -238,14 +238,262 @@ function moreDestructuring() {
 		({ y: x = { y: y } } = o1);
 		({ z: y = { y: z } } = o1);
 		({ x: z = { y: x } } = o1);
-		console.log( x.y, y.y, z.y );
+		console.log(x.y, y.y, z.y);
 
 		let m = 20;
-		let o ={
-			l:100
+		let o = {
+			l: 100
 		};
-		({l:m={a:300}}=o);
+		({ l: m = { a: 300 } } = o);
 		console.log(m);
+	}
+	{
+		console.log("----- Destructuring default and default function parameters -----");
+		console.log("Function signature with de-defaults:f1([x1=10,x2=20,...xR],{y1=100,y2=200})");
+		// 1st argument receives an array with atleast 2 values
+		// 2nd argument receives an object with properties y1,y2
+		function f1([x1 = 10, x2 = 20, ...xR], { y1 = 100, y2 = 200 }) {
+			console.log(x1, x2, xR, y1, y2);
+		}
+		console.log("Call f1 with f1([11,22,33,44,55],{y1:500,y2:600});");
+		f1([11, 22, 33, 44, 55], { y1: 500, y2: 600 });
+		// 1st argument expects an object with a propery named x with a destructuring default value 10
+		// and function default value as an empty object
+		// 2nd argument expects an object with a parameter y, and default function default being {y:20}
+		function f2({ x = 10 } = {}, { y } = { y: 20 }) {
+			console.log(x, y);
+		}
+		console.log("f2()");
+		f2();
+		console.log("f2({x:300},{y:400})");
+		f2({ x: 300 }, { y: 400 });
+		console.log("f2({},{})");
+		f2({}, {});
+		console.log("f2({z:30})");
+		f2({ z: 30 })
+		console.log("f2(400)");
+		f2({ z: 30 })
+	}
+	{
+		console.log("----- Destructered and restructered -----");
+		console.log("***** Assigning default properties to an objet " +
+			"only when those properties don't exist*****");
+		// The default properties
+		let defaults = {
+			options: {
+				remove: true,
+				enable: false,
+				instance: {
+					flag: true,
+					name: "default"
+				}
+			},
+			log: {
+				warn: true,
+				error: true
+			}
+		};
+		function getInitialConfig() {
+			return {
+				options: {
+					remove: false,
+					instance: null
+				}
+			};
+		}
+		console.log("Default ", defaults);
+		// The conventional way
+		// We have to check if a property exists and if it does not, assign values from the 
+		// defaults. Otherwise don't change
+		function getConventionalConfig(config) {
+			// Assign options
+			config.options = config.options || {};
+			// Check every property now
+			config.options.remove = (config.options.remove !== undefined) ?
+				config.options.remove : defaults.options.remove;
+			config.options.enable = (config.options.enable !== undefined) ?
+				config.options.enable : defaults.options.enable;
+			config.options.instance = (config.options.instance !== undefined) ?
+				config.options.instance : defaultStatus.options.instance;
+			// Assign log
+			config.log = config.log || {};
+			config.log.warn = (config.log.warn !== undefined) ?
+				config.log.warn : defaults.log.warn;
+			config.log.error = (config.log.error !== undefined) ?
+				config.log.error : defaults.log.error;
+			return config;
+		}
+		console.log("After assigning values :", getConventionalConfig(getInitialConfig()));
+		function getImprovedConfig(config) {
+			console.log("Improved config assignment through ES6");
+			// Assign options
+			config.options = config.options || {};
+			// Assign log
+			config.log = config.log || {};
+			// Using ES6 destructuring and default values
+			// Jumping hoops and hurdles here. Not exactly bettern than the previous approach
+			// Destructuring the config object and assigning its values to itself
+			({
+				// Destructuring of the properties of config here
+				options: {
+					// Restructuring of config object here
+					// If there is a property named, say, config.options.remove then
+					// its value is assigned back to itself. Other it is taken from
+					// defaults.option.remove
+					remove: config.options.remove = defaults.options.remove,
+					enable: config.options.enable = defaults.options.enable,
+					instance: config.options.instance = defaults.options.instance
+				} = {},
+				log: {
+					warn: config.log.warn = defaults.log.warn,
+					error: config.log.error = defaults.log.error
+				} = {}
+			} = config);
+			console.log(config);
+		}
+		getImprovedConfig(getInitialConfig());
+		{
+			console.log("----- Some examples -----");
+			let user = {
+				p1: "val1",
+				o1: {
+					op1: "oval1",
+				},
+				o2: {
+					op2: "oval2"
+				}
+			};
+			console.log("Target object :", user);
+			let defaultUser = {
+				p1: "dval1",
+				p2: "dval2",
+				p3: "dval3",
+				o1: {
+					op1: "doval1"
+				},
+				o2: {
+					op2: "doval2",
+					op3: "doval3"
+				},
+				o3: {
+					op4: "doval4"
+				}
+			};
+			console.log("Default object :", defaultUser);
+			console.log("Merging of user and defaultUser.....");
+			let {
+				p1: p1 = defaultUser.p1,
+				p2: p2 = defaultUser.p2,
+				p3: p3 = defaultUser.p3,
+				o1: {
+					op1: op1 = defaultUser.o1.op1
+				} = {},
+				o2: {
+					op2: op2 = defaultUser.o2.op2,
+					op3: op3 = defaultUser.o2.op3
+				} = {},
+				o3: {
+					op4: op4 = defaultUser.o3.op4
+				} = {}
+			} = user;
+			user = {
+				p1, p2, p3, o1: { op1 }, o2: { op2, op3 }, o3: { op4 }
+			};
+			console.log(p1, p2, p3, op1, op2, op3);
+			console.log("After merging : ", user);
+
+		}
+		{
+			console.log("----- The merging -----");
+			let config = getInitialConfig();
+			// Improved configuration assignment version 2
+			// merge `defaults` into `config`
+			console.log("Before:", config);
+			// destructure the config (with default value assignments)
+			let {
+				// options here belongs to config
+				// source : target pattern
+				// Nested destructuring
+				options: {
+					// Create temporary variables as well as use default parameters
+					// If there is a property named "options" is present, an empty
+					// object is used as default object
+					remove = defaults.options.remove,
+					enable = defaults.options.enable,
+					instance = defaults.options.instance
+					} = {},// This empty is used if there is not object named options
+				log: {
+					warn = defaults.log.warn,
+					error = defaults.log.error
+					} = {} // Empty object handles the possiblity of logs not being present
+			} = config;
+			// restructure
+			config = {
+				options: { remove, enable, instance },
+				log: { warn, error }
+			};
+			console.log("After:", config);
+		}
+		{
+			console.log("----- Simple nested destructuring -----");
+			let def = {
+				a: {
+					a1: 10,
+					a2: 20
+				},
+				b: {
+					b1: {
+						b11: 100,
+						b12: 200
+					}
+				}
+			};
+			let main = {
+				a: {
+					a2: 21
+				},
+				c: {
+					c1: 500
+				}
+			};
+			console.log("def object :", def);
+			console.log("main object :", main);
+			console.log("----- Merging def and main -----");
+			{
+				// Lot of destructuring and default values
+				let {
+					// Destructuring
+					a: {
+						// Destructuring as well as default values
+						a1: a1 = def.a.a1, a2: a2 = def.a.a2
+					} = {}, // If no 'a' property in main, then assign an empty object
+					b: {
+						b1: {
+							b11: b11 = def.b.b1.b11, b12: b12 = def.b.b1.b12
+						} = {}
+					} = {},
+					c: {
+						c1: c1 = def.c.c1
+					} = {}
+				} = main;
+				// Restructuring
+				// At the end of all the destructuring above, we will have a bunch local variables
+				main = {
+					a: {
+						a1: a1, a2: a2
+					},
+					b: {
+						b1: {
+							b11: b11, b12: b12
+						}
+					},
+					c: {
+						c1: c1
+					}
+				};
+			}
+			console.log("Final result main:", main);
+		}
 	}
 }
 // spreadAndGather();
