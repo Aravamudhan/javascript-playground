@@ -1,7 +1,7 @@
 {
   "name": "yelp-camp",
-  "version": "3.0.0",
-  "description": "YelpCamp version 3 - comments, module.exports",
+  "version": "4.0.0",
+  "description": "YelpCamp version 4",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
