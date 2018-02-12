@@ -1,0 +1,13 @@
+h1{
+    text-align: center;
+}
+.user-detail-form {
+    width: 30%;
+    margin: 25px auto;
+}
+.error-block{
+    text-align: center;
+    width:100%;
+    font-weight: 700;
+    color: red;
+}
