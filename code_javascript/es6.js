@@ -657,16 +657,17 @@ function computedPropertyNames() {
 	console.log('In computedPropertyNames');
 	let prefix = "user";
 	let obj = {
-		[prefix+"Name"]:'Default name'
+		[prefix + "Name"]: 'Default name'
 	}
 	console.log(obj);
 }
-function templateLiterals(){
+
+function templateLiterals() {
 	console.log('-----templateLiterals-----');
 	let user = 'Amu';
 	let greet = `Hello ${user}`;
 	console.log(greet);
-	let sum =`Sum of 5+5 is ${5+5}`;
+	let sum = `Sum of 5+5 is ${5+5}`;
 	console.log(sum);
 	console.log('-----Multiple lines-----');
 	let words = `
@@ -675,12 +676,121 @@ function templateLiterals(){
 			And I am awesome too!!!
 		`;
 	console.log(words);
-	function upper(s){
+
+	function upper(s) {
 		return s.toUpperCase();
 	}
 	let myHome = 'to my humble abode!';
 	let greetAgain = `Hello! ${upper("welcome")} ${upper(myHome)}`;
 	console.log(greetAgain);
+}
+
+function taggedTemplateLiterals() {
+	{
+		console.log('taggedTemplateLiterals..........');
+
+		function foo(text, value) {
+			console.log('text', text);
+			console.log('value', value);
+			return 'Template is processed.';
+		}
+		let desc = 'awesome';
+		let result = foo `Template strings are ${desc} to work with!!`;
+		console.log(result);
+	} {
+		console.log('Simple fallthrough function-----');
+
+		function transform(strings, ...values) {
+			return strings.reduce((accumulator, value, index) => {
+				let templateValue = values[index]
+				return accumulator.concat(value || '').concat(templateValue || '');
+			}, '');
+		}
+		let name = 'Ghost';
+		let age = 2;
+		let breed = 'direwolf';
+		let result = transform `${name} is a ${breed} and aged ${age} years`;
+		console.log(result);
+	} {
+		console.log('Formatting money.........');
+		// Simply adding the dollar sign to all the numbers
+		// We are going to assume that any number that we encounter is pointing to a money value
+		function formatMoney(strings, ...values) {
+			// Somestimes the words could be more and the values could be less. Sometime they might be vice versa.
+			if (strings.length > values.length) {
+				return strings.reduce((accumulator, text, index) => {
+					let templateValue = values[index]
+					return accumulator.concat(text || '').concat(templateValue ? '$' + templateValue : '');
+				}, '');
+			} else {
+				return values.reduce((accumulator, value, index) => {
+					let templateValue = values[index];
+					return accumulator.concat(value || '').concat(templateValue ? '$' + templateValue : '');
+				}, '');
+			}
+		}
+		let food = 100;
+		let house = 300;
+		let expense1 = 50;
+		let expense2 = 40;
+		let expense3 = 80;
+		let total = formatMoney `Food costs ${food}, house costs ${house} and other big expenses this month are ${expense1}, ${expense2}, ${expense3}`;
+		console.log(total);
+	} {
+		console.log('Sanitizing data......');
+		let badWords = ['xyz', 'abc', 'ijk'];
+
+		function sanitize(strings, ...values) {
+			return strings.reduce((accumulator, text, index) => {
+				let templateValue = values[index]
+				return accumulator.concat(text || '').concat((templateValue && badWords.indexOf(templateValue) < 0) ? templateValue : '');
+			}, '');
+		}
+		let w1 = 'xyz';
+		let w2 = 'abc';
+		let w3 = 'ijk';
+		let w4 = 'nice';
+		console.log('Before........');
+		console.log(w1);
+		console.log(w2);
+		console.log(w3);
+		console.log(w4);
+		console.log('After.........');
+		w1 = sanitize `I say ${w1}`;
+		w2 = sanitize `I say ${w2}`;
+		w3 = sanitize `I say ${w3}`;
+		w4 = sanitize `I say ${w4}`;
+		console.log(w1);
+		console.log(w2);
+		console.log(w3);
+		console.log(w4);
+	}
+}
+
+function arrowFunctions() {
+	let o1 = {
+		name: 'I am the NAME!',
+		wrongIntro: () => this.name, // There will be no this variable, hence will return undefined
+		intro: function () {
+			return this.name;
+		}
+	};
+	console.log('Because of wrongly used arrow function:', o1.wrongIntro());
+	console.log('Correct usage:', o1.intro());
+}
+
+function forOf() {
+	const names = ['James', 'Ron', 'Harry'];
+	console.log('Testing for..of...............');
+	console.log('Array');
+	for (name of names) {
+		console.log(name);
+	}
+	console.log('String');
+	const text = 'awesome';
+	for (t of text) {
+		console.log(t);
+	}
 }
 // spreadAndGather();
 // defaultValues();
@@ -688,4 +798,7 @@ function templateLiterals(){
 // moreDestructuring();
 // conciseFunctions();
 // computedPropertyNames();
-templateLiterals();
+// templateLiterals();
+// taggedTemplateLiterals();
+// arrowFunctions();
+forOf();
