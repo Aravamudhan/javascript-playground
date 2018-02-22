@@ -792,6 +792,40 @@ function forOf() {
 		console.log(t);
 	}
 }
+
+function symbols() {
+	{
+		console.log("----------Symbols----------");
+		let sym = Symbol("I am the symbol of happiness");
+		console.log(sym);
+		console.log(typeof sym); // symbol
+		console.log(sym instanceof Symbol); // false
+	} {
+		console.log("Event handling-------");
+		// Create a custom event emitter
+		const EventEmitter = require("events");
+		class CustomEmitter extends EventEmitter {}
+		const loginEmitter = new CustomEmitter();
+		// Create an unique event name(symbol)
+		const LOGIN_EVENT = Symbol("event.login");
+		// Register the event
+		loginEmitter.on(LOGIN_EVENT, (obj) => {
+			console.log("Login event has happened:", obj);
+		});
+		// Some where in the code, a LOGIN_EVENT is created
+		loginEmitter.emit(LOGIN_EVENT, {
+			user: "Jon",
+			time: new Date().toDateString()
+		});
+	} {
+		console.log("Symbol registry----------");
+		const SUCCESS_EVENT_NAME = "event.success";
+		const SUCCESS_EVENT = Symbol.for(SUCCESS_EVENT_NAME);
+		const ANOTHER_SUCCESS_EVENT = Symbol.for(SUCCESS_EVENT_NAME);
+		console.log(SUCCESS_EVENT === ANOTHER_SUCCESS_EVENT);
+		console.log(Symbol.keyFor(SUCCESS_EVENT));// Returns the description
+	}
+}
 // spreadAndGather();
 // defaultValues();
 // destructuring();
@@ -801,4 +835,5 @@ function forOf() {
 // templateLiterals();
 // taggedTemplateLiterals();
 // arrowFunctions();
-forOf();
+// forOf();
+symbols();
