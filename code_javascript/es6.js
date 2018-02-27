@@ -823,7 +823,7 @@ function symbols() {
 		const SUCCESS_EVENT = Symbol.for(SUCCESS_EVENT_NAME);
 		const ANOTHER_SUCCESS_EVENT = Symbol.for(SUCCESS_EVENT_NAME);
 		console.log(SUCCESS_EVENT === ANOTHER_SUCCESS_EVENT);
-		console.log(Symbol.keyFor(SUCCESS_EVENT));// Returns the description
+		console.log(Symbol.keyFor(SUCCESS_EVENT)); // Returns the description
 	}
 }
 // spreadAndGather();

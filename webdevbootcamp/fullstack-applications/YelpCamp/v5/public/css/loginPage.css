@@ -1,0 +1,91 @@
+body {
+    background: url("https://images.unsplash.com/photo-1445888985293-8e1b904061c4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=539fc8bc38afc1fd808f9ebf7762cdd7");
+    background-size: cover;
+    background-position: center;
+}
+
+.body-wrapper {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#signin-block {
+    padding: 1rem;
+    background-color: whitesmoke;
+    width: 100%;
+    min-width: 400px;
+    max-width: 480px;
+    /* margin: 10rem auto 0 auto; */
+    box-sizing: border-box;
+}
+
+div.block {
+    border-bottom: 1px solid #b7cdd9;
+    height: 5rem;
+    text-align: center;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+}
+
+div.block.highlight {
+    border-bottom: 1px solid #0b8ed6;
+}
+
+div.block label {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    bottom: -30%;
+    z-index: 20;
+    transition: font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+div.block label.top {
+    bottom: -5%;
+    color: gray;
+    font-weight: 100;
+}
+div.uname label::before{
+    content:"";
+    display: block;
+    position: absolute;
+    background: url("/person.svg");
+    background-repeat: no-repeat;
+    width:30px;
+    height: 30px;
+    /* float: left; */
+}
+div.pwd label::before{
+    content:"";
+    display: block;
+    position: absolute;
+    background: url("/lock.svg");
+    background-repeat: no-repeat;
+    width:30px;
+    height: 30px;
+    /* float: left; */
+}
+input.box {
+    background-color: whitesmoke;
+    border: none;
+    width: 80%;
+    outline: 0;
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    top: -50%;
+    padding: 6% 0 0 0;
+}
+
+.signin-button {
+    width: 25%;
+}
+
+.submit-block {
+    padding: 1rem;
+}

@@ -1,0 +1,62 @@
+<% include layouts/header %>
+    <link rel="stylesheet" href="/css/campdetails.css">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead">YelpCamp</p>
+                <div class="list-group">
+                    <li class="list-group-item">Info 1</li>
+                    <li class="list-group-item">Info 2</li>
+                    <li class="list-group-item">Info 3</li>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail campground-detail" style="padding:0;">
+                    <img class="img-responsive campground-image" src="<%=result.image%>" alt="<%=result.name%>">
+                    <div class="caption">
+                        <h4 class="pull-right">$10/night</h4>
+                        <h4 class="page-header">
+                            <a href="/campgrounds">
+                                <%=result.name%>
+                            </a>
+                        </h4>
+                        <p>
+                            <%=result.description%>
+                        </p>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="comment-create-block">
+                        <textarea class="form-control .form-control-lg" id="comment-area" rows="3" placeholder="Add your review"></textarea>
+                        <div>
+                            <button class="btn btn-primary" id="comment-add">Submit review</button>
+                        </div>
+                    </div>
+                    <div class="comment-container row">
+                        <% result.comments.forEach(comment => { %>
+                            <div class="comment-box">
+                                <div class="comment-body">
+                                    <strong>
+                                        <%=comment.author%>
+                                    </strong>
+                                    <p class="pull-right">10 days ago</p>
+                                    <span class="tip tip-left"></span>
+                                    <div class="message">
+                                        <span>
+                                            <%=comment.text%>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The pollyfills are added for browsers that have not implemented a feature yet -->
+    <!-- I have used this here to use the 'prepend' -->
+    <script src="/js/pollyfills.js"></script>
+    <script src="/js/ajax.js"></script>
+    <script src="/js/handleComments.js"></script>
+    <% include layouts/footer %>
