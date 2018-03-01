@@ -2,7 +2,8 @@ const express = require('express'),
     Campground = require('../models/campground'),
     Comment = require('../models/comment'),
     User = require('../models/user'),
-    router = express.Router();
+    router = express.Router(),
+    loginMiddleWare = require("./loginUtility");
 
 function renderLandingPage(req, res) {
     res.render("landing");
@@ -97,6 +98,5 @@ router.get("/campgrounds", renderCampgrounds);
 router.post("/campgrounds", createCampground);
 router.get("/campgrounds/new", renderCreateCampground);
 router.get("/campgrounds/:id", renderCampground);
-router.post('/campgrounds/:id/comments', createComment);
-
+router.post('/campgrounds/:id/comments', loginMiddleWare.isLoggedInAjax, createComment);
 module.exports = router;

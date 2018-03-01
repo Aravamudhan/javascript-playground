@@ -11,7 +11,8 @@ const express = require('express'),
     User = require('./models/user'),
     initDbSampleData = require("./initDbSampleData"),
     databaseHost = properties.get("db.host"),
-    databaseName = properties.get("db.database");
+    databaseName = properties.get("db.database"),
+    loginMiddleWare = require("./routes/loginUtility");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
@@ -27,8 +28,10 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.use(loginMiddleWare.setLoggedInUser);
 // Auth boiler plate ends
 mongoose.connect(databaseHost + databaseName);
 initDbSampleData();

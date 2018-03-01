@@ -1,5 +1,5 @@
 body {
-    background: url("https://images.unsplash.com/photo-1445888985293-8e1b904061c4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=539fc8bc38afc1fd808f9ebf7762cdd7");
+    background: url("https://images.unsplash.com/photo-1445888985293-8e1b904061c4");
     background-size: cover;
     background-position: center;
 }
@@ -18,7 +18,6 @@ body {
     width: 100%;
     min-width: 400px;
     max-width: 480px;
-    /* margin: 10rem auto 0 auto; */
     box-sizing: border-box;
 }
 
@@ -50,26 +49,25 @@ div.block label.top {
     color: gray;
     font-weight: 100;
 }
-div.uname label::before{
-    content:"";
-    display: block;
+
+div.uname span#uname-icon,
+div.pwd span#pwd-icon {
+    display: inline-block;
     position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 1rem;
+}
+div.uname span#uname-icon {
     background: url("/person.svg");
     background-repeat: no-repeat;
-    width:30px;
-    height: 30px;
-    /* float: left; */
 }
-div.pwd label::before{
-    content:"";
-    display: block;
-    position: absolute;
+
+div.pwd span#pwd-icon {
     background: url("/lock.svg");
     background-repeat: no-repeat;
-    width:30px;
-    height: 30px;
-    /* float: left; */
 }
+
 input.box {
     background-color: whitesmoke;
     border: none;
