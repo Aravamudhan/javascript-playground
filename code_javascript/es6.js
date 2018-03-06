@@ -826,6 +826,74 @@ function symbols() {
 		console.log(Symbol.keyFor(SUCCESS_EVENT)); // Returns the description
 	}
 }
+
+function iteratorsTest() {
+	console.log("Starting iterator test-----"); {
+		console.log("Random number utility-----");
+		let randomNumberUtility = {
+			value: undefined,
+			done: false,
+			[Symbol.iterator]() {
+				return this;
+			},
+			next: function () {
+				if (this.done == false) {
+					this.value = Math.floor(Math.random() * 10) + 1;
+					if (this.value === 10) {
+						this.done = true;
+					}
+				}
+				let iterableResult = {
+					value: this.value,
+					done: this.done
+				};
+				return iterableResult;
+			}
+		}
+		// The for..of loop gets the iterator
+		// The repeatedly calls the next function until the property done of iterableResult is true
+		for (let r of randomNumberUtility) {
+			console.log(r);
+		}
+		console.log("Done with for..of");
+		console.log(randomNumberUtility.next());
+	} {
+		console.log("Fibonacci series utility-----");
+		let Fib = {
+			[Symbol.iterator]() {
+				let n1 = 1,
+					n2 = 1;
+				return {
+					next() {
+						let current = n2;
+						n2 = n1;
+						n1 = n1 + current;
+						return {
+							value: current,
+							done: false
+						};
+					},
+
+					return (v) {
+						console.log(
+							"Fibonacci sequence abandoned."
+						);
+						return {
+							value: v,
+							done: true
+						};
+					}
+				};
+			}
+		};
+		for (let f of Fib) {
+			console.log(f);
+			if (f > 50) {
+				break;
+			}
+		}
+	}
+}
 // spreadAndGather();
 // defaultValues();
 // destructuring();
@@ -836,4 +904,5 @@ function symbols() {
 // taggedTemplateLiterals();
 // arrowFunctions();
 // forOf();
-symbols();
+// symbols();
+iteratorsTest();
