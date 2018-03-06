@@ -1,7 +1,10 @@
 body {
-    background: url("https://images.unsplash.com/photo-1445888985293-8e1b904061c4");
-    background-size: cover;
-    background-position: center;
+    background: #159957;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #155799, #159957);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #155799, #159957);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .body-wrapper {
@@ -12,7 +15,8 @@ body {
     justify-content: center;
 }
 
-#signin-block {
+#signin-block,
+#signup-block {
     padding: 1rem;
     background-color: whitesmoke;
     width: 100%;
@@ -58,6 +62,7 @@ div.pwd span#pwd-icon {
     height: 30px;
     top: 1rem;
 }
+
 div.uname span#uname-icon {
     background: url("/person.svg");
     background-repeat: no-repeat;
@@ -80,10 +85,16 @@ input.box {
     padding: 6% 0 0 0;
 }
 
-.signin-button {
+.signin-button,
+.signup-button {
     width: 25%;
 }
 
 .submit-block {
     padding: 1rem;
+}
+
+.error-block {
+    color: red;
+    width: 100%;
 }

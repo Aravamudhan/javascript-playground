@@ -18,19 +18,21 @@
                 <ul class="nav navbar-nav navbar-right">
                     <% if( typeof currentUser !='undefined' && currentUser){%>
                         <li>
-                            <a href="#"><%=currentUser.username%></a>
+                            <a href="#">
+                                <%=currentUser.username%>
+                            </a>
                         </li>
                         <li>
                             <a href="/logout">Logout</a>
                         </li>
                         <%} else { %>
-                        <li>
-                            <a href="/login">Login</a>
-                        </li>
-                        <li>
-                            <a href="/register">Register</a>
-                        </li>
-                    <% } %>
+                            <li>
+                                <a href="/login">Login</a>
+                            </li>
+                            <li>
+                                <a href="/register">Register</a>
+                            </li>
+                            <% } %>
                 </ul>
             </div>
         </div>

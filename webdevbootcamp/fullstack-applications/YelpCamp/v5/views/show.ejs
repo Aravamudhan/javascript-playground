@@ -1,5 +1,6 @@
 <% include layouts/header %>
     <link rel="stylesheet" href="/css/campdetails.css">
+    <link rel="stylesheet" href="/css/modal.css">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -54,9 +55,35 @@
             </div>
         </div>
     </div>
+    <!-- Failure modal -->
+    <div id="failure-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <p class="text-center">Post review</p>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Huh! You can't post reviews if you are not logged in!</p>
+                <div class="modal-login-info">
+                    <a href="/login" class="btn btn-primary modal-btn">Login</a>
+                    <a href="/register" class="btn btn-primary modal-btn">Register</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <!-- The pollyfills are added for browsers that have not implemented a feature yet -->
     <!-- I have used this here to use the 'prepend' -->
     <script src="/js/pollyfills.js"></script>
     <script src="/js/ajax.js"></script>
-    <script src="/js/handleComments.js"></script>
+    <script src="/js/comments.js"></script>
+    <script src="/js/modal.js">
+    </script>
+    <script>
+        window.onload = function () {
+            setupComments();
+            setupFailureModal();
+        }
+    </script>
     <% include layouts/footer %>

@@ -3,6 +3,10 @@ const express = require("express"),
     User = require("../models/user"),
     router = express.Router();
 
+function renderLandingPage(req, res) {
+    res.render("landing");
+}
+
 function renderRegisterationPage(req, res) {
     res.render("register");
 }
@@ -42,6 +46,7 @@ let authMiddleWare = passport.authenticate("local", {
     successRedirect: "/campgrounds",
     failureRedirect: "/login",
 });
+router.get("/", renderLandingPage);
 router.get("/register", renderRegisterationPage);
 router.post("/register", registerUser);
 router.get("/login", renderLoginPage);

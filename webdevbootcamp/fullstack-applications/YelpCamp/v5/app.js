@@ -36,5 +36,6 @@ app.use(loginMiddleWare.setLoggedInUser);
 mongoose.connect(databaseHost + databaseName);
 initDbSampleData();
 app.use(require("./routes/authRoutes"));
-app.use(require("./routes/mainRoutes"));
+app.use("/campgrounds", require("./routes/campgroundRoutes"));
+app.use("/campgrounds/:id/comments", require("./routes/commentRoutes"));
 app.listen(8000, () => console.log("YelpCamp v5.0 has started and listening at 8000"));

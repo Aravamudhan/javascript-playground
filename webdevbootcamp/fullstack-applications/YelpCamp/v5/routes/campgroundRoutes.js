@@ -1,13 +1,8 @@
 const express = require('express'),
     Campground = require('../models/campground'),
     Comment = require('../models/comment'),
-    User = require('../models/user'),
     router = express.Router(),
     loginMiddleWare = require("./loginUtility");
-
-function renderLandingPage(req, res) {
-    res.render("landing");
-}
 
 function renderCampgrounds(req, res) {
     Campground.find({}, (err, campData) => {
@@ -93,10 +88,8 @@ function createComment(req, res) {
     });
 }
 
-router.get("/", renderLandingPage);
-router.get("/campgrounds", renderCampgrounds);
-router.post("/campgrounds", createCampground);
-router.get("/campgrounds/new", renderCreateCampground);
-router.get("/campgrounds/:id", renderCampground);
-router.post('/campgrounds/:id/comments', loginMiddleWare.isLoggedInAjax, createComment);
+router.get("/", renderCampgrounds);
+router.post("/", createCampground);
+router.get("/new", renderCreateCampground);
+router.get("/:id", renderCampground);
 module.exports = router;
