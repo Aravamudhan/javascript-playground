@@ -9,10 +9,10 @@ const express = require('express'),
     properties = propertiesReader('app.properties'),
     crypto = require('crypto'),
     User = require('./models/user'),
-    initDbSampleData = require("./initDbSampleData"),
     databaseHost = properties.get("db.host"),
     databaseName = properties.get("db.database"),
-    loginMiddleWare = require("./routes/loginUtility");
+    loginMiddleWare = require("./routes/loginUtility"),
+    methodOverride = require('method-override');
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
@@ -34,8 +34,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use(loginMiddleWare.setLoggedInUser);
 // Auth boiler plate ends
 mongoose.connect(databaseHost + databaseName);
-initDbSampleData();
+app.use(methodOverride("_method"));
 app.use(require("./routes/authRoutes"));
+app.use(require("./routes/commonRoutes"));
 app.use("/campgrounds", require("./routes/campgroundRoutes"));
 app.use("/campgrounds/:id/comments", require("./routes/commentRoutes"));
 app.listen(8000, () => console.log("YelpCamp v5.0 has started and listening at 8000"));

@@ -7,7 +7,7 @@ const express = require('express'),
     loginMiddleWare = require("./loginUtility");
 
 function createComment(req, res) {
-    console.log('Creating a new comment ', req.body);
+    console.log("Creating a new comment");
     let id = req.params.id;
     let comment = req.body;
     let commentResponse = {};
@@ -24,6 +24,10 @@ function createComment(req, res) {
             commentResponse.error = err;
             res.status(500).json(commentResponse);
         }
+        comment.author = {
+            username: req.user.username,
+            id: req.user._id
+        };
         Comment.create(comment, function (err, commentResult) {
             if (err || !commentResult) {
                 errorMsg = `Error creating the comment: ${comment}`;
@@ -34,7 +38,7 @@ function createComment(req, res) {
             } else {
                 campgroundResult.comments.push(commentResult._id);
                 campgroundResult.save();
-                console.log("Created new comment and added to the campground", commentResult);
+                console.log("Created new comment and added to the campground");
                 res.json(commentResult);
             }
         });

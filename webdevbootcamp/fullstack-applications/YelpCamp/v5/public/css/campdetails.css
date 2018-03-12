@@ -50,3 +50,22 @@
 .campground-detail .campground-image {
     width: 100%;
 }
+
+.campground-detail-header {
+    display: flex;
+    align-items: center;
+    flex-basis: 100%;
+    max-height: 70px;
+}
+.campground-detail-header div{
+    flex:1;
+    max-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.campground-detail-header div .btn{
+    min-height: 30px;
+    min-width: 70px;
+    align-items: center;
+}

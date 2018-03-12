@@ -23,10 +23,7 @@ function setupComments() {
 
     function addComment(commentObj) {
         if (commentObj) {
-            let authorName = commentObj.author;
-            if (!authorName) {
-                authorName = 'Anonymouse user';
-            }
+            let authorName = commentObj.author ? commentObj.author.username : "Anonymous user";
             let commentContainer = document.querySelector('.comment-container');
             let commentBox = document.createElement('div');
             commentBox.classList.add('comment-box');

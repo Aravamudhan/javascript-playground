@@ -10,7 +10,6 @@ function renderCampgrounds(req, res) {
             console.log("Find failed");
             res.redirect("/error");
         } else {
-            console.log(campData);
             res.render("index", {
                 campData
             });
@@ -22,14 +21,18 @@ function createCampground(req, res) {
     let camp = {
         name: req.body.campName,
         image: req.body.campImage,
-        description: req.body.campDescription
+        description: req.body.campDescription,
+        author: {
+            id: req.user.id,
+            username: req.user.username
+        }
     };
     Campground.create(camp, (err, result) => {
         if (err) {
             console.log('Error saving[', camp, '] [', err, ']');
             res.redirect("/error");
         } else {
-            console.log('Campground is saved', result);
+            console.log('Campground is saved');
             res.redirect("/campgrounds");
         }
     });
@@ -53,43 +56,74 @@ function renderCampground(req, res) {
     });
 }
 
-function createComment(req, res) {
-    console.log('Creating a new comment ', req.body);
+function renderEditCampground(req, res) {
     let id = req.params.id;
-    let comment = req.body;
-    let commentResponse = {};
-    Campground.findById(id, (err, campgroundResult) => {
-        let errorMsg;
-        if (!campgroundResult) {
-            errorMsg = `Can not find the campground with id: ${id}`;
-            console.log(errorMsg);
-            commentResponse.error = errorMsg;
-            res.status(404).json(commentResponse);
-        } else if (err) {
-            errorMsg = `Error in finding the campground with id: ${id}`;
-            console.log(errorMsg);
-            commentResponse.error = err;
-            res.status(500).json(commentResponse);
+    Campground.findById(id, (err, campground) => {
+        if (err) {
+            console.log("Error finding campground with id", id);
+            let errorMessage = "Error finding the campground for you. Try again later.";
+            res.redirect("/error?errorMessage=" + errorMessage);
+        } else {
+            res.render("edit", {
+                campground
+            });
         }
-        Comment.create(comment, function (err, commentResult) {
-            if (err || !commentResult) {
-                errorMsg = `Error creating the comment: ${comment}`;
-                console.log(errorMsg);
-                console.log(err);
-                commentResponse.error = err;
-                res.status(500).json(commentResponse);
-            } else {
-                campgroundResult.comments.push(commentResult._id);
-                campgroundResult.save();
-                console.log("Created new comment and added to the campground", commentResult);
-                res.json(commentResult);
-            }
-        });
     });
 }
 
+function editCampground(req, res) {
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
+        if (err) {
+            console.log("Error finding campground with id", id);
+            let errorMessage = "Error finding and updating the campground";
+            res.redirect("/error?errorMessage=" + errorMessage);
+        } else {
+            res.redirect("/campgrounds/" + campground._id);
+        }
+    });
+}
+
+function deleteCampground(req, res) {
+    Campground.findByIdAndRemove(req.params.id, (err) => {
+        if (err) {
+            console.log("Error finding campground with id", id);
+            res.redirect("/error");
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
+}
+
+function checkAuthorization(req, res, next) {
+    if (req.isAuthenticated()) {
+        let id = req.params.id;
+        Campground.findById(id, (err, campground) => {
+            if (err) {
+                let errorMessage = "Error finding campground";
+                console.log("Error finding campground with id", id);
+                res.redirect("/error?errorMessage=" + errorMessage);
+            } else {
+                // The campground.author.id is not a string. To compare that with user._id equals method
+                // has to be used
+                if (campground && campground.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    let errorMessage = "You do not have the permission to access this resource. You are not the owner of this resource.";
+                    res.redirect("/error?errorMessage=" + errorMessage);
+                }
+            }
+        });
+    } else {
+        let errorMessage = "You are not authenticated to perform this operation";
+        res.redirect("/error?errorMessage=" + errorMessage);
+    }
+}
+
 router.get("/", renderCampgrounds);
-router.post("/", createCampground);
-router.get("/new", renderCreateCampground);
+router.post("/", loginMiddleWare.isLoggedInPage, createCampground);
+router.get("/new", loginMiddleWare.isLoggedInPage, renderCreateCampground);
 router.get("/:id", renderCampground);
+router.get("/:id/edit", checkAuthorization, renderEditCampground);
+router.put("/:id", checkAuthorization, editCampground);
+router.delete("/:id", checkAuthorization, deleteCampground);
 module.exports = router;

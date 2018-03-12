@@ -849,7 +849,7 @@ function iteratorsTest() {
 				};
 				return iterableResult;
 			}
-		}
+		};
 		// The for..of loop gets the iterator
 		// The repeatedly calls the next function until the property done of iterableResult is true
 		for (let r of randomNumberUtility) {
@@ -892,6 +892,87 @@ function iteratorsTest() {
 				break;
 			}
 		}
+	} {
+		console.log("Counter....");
+		let obj = {
+			[Symbol.iterator]() {
+				return {
+					count: 0,
+					next() {
+						return {
+							value: this.count++,
+							done: false
+						}
+					},
+					return (v) {
+						console.log("Sequence is done");
+						return {
+							value: v,
+							done: true
+						}
+					}
+				};
+			}
+		}
+		let c = 0;
+		for (o of obj) {
+			console.log(o);
+			c++;
+			if (c > 10) {
+				break;
+			}
+		}
+	} {
+		console.log("Task executor-----");
+		let taskRepo = {
+			actions: [],
+			[Symbol.iterator]() {
+				let steps = this.actions.slice();
+				return {
+					next(...args) {
+						if (steps.length > 0) {
+							let task = steps.shift();
+							let result = task(...args);
+							return {
+								value: result,
+								done: false
+							};
+						} else {
+							console.log("No tasks in the queue");
+							return {
+								value: undefined,
+								done: true
+							}
+						}
+					},
+					return (v) {
+						console.log("Tasks are completed...");
+						return {
+							value: v,
+							done: true
+						}
+					}
+				};
+			}
+		};
+		taskRepo.actions.push(
+			function task1(v) {
+				console.log("Executing task1");
+				return v * v;
+			},
+			function task2(v1, v2) {
+				console.log("Executing task2");
+				return v1 + v2;
+			}
+		);
+		let taskExecutor = taskRepo[Symbol.iterator]();
+
+		let res = taskExecutor.next(10);
+		console.log(res);
+		res = taskExecutor.next(100, 200);
+		console.log(res);
+		res = taskExecutor.next(300);
+		console.log(res);
 	}
 }
 // spreadAndGather();

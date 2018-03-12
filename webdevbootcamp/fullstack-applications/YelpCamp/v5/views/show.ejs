@@ -15,12 +15,37 @@
                 <div class="thumbnail campground-detail" style="padding:0;">
                     <img class="img-responsive campground-image" src="<%=result.image%>" alt="<%=result.name%>">
                     <div class="caption">
+                        <p class="pull-left">Submitted by
+                            <i>
+                                <strong>
+                                    <%=result.author.username%>
+                                </strong>
+                            </i>
+                        </p>
                         <h4 class="pull-right">$10/night</h4>
-                        <h4 class="page-header">
-                            <a href="/campgrounds">
-                                <%=result.name%>
-                            </a>
-                        </h4>
+                        <div class="page-header campground-detail-header">
+                            <div>
+                                <!-- Showing the button only if it is necessary -->
+                                <%if(currentUser && result && result.author.id.equals(currentUser._id)){%>
+                                    <a href="<%=result._id%>/edit" class="btn btn-warning">Edit</a>
+                                    <%}%>
+                            </div>
+                            <div>
+                                <a href="/campgrounds">
+                                    <h3>
+                                        <%=result.name%>
+                                    </h3>
+                                </a>
+                            </div>
+                            <div>
+                                <%if(currentUser && result && result.author.id.equals(currentUser._id)){%>
+                                    <form onsubmit="return confirm('Are you really want to delete this campground ? Once deleted every thing related to the campground, from images to the comments, will be gone. You will not be able to retrieve it back.')"
+                                        action="/campgrounds/<%=result._id%>?_method=DELETE" method="POST">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                    <%}%>
+                            </div>
+                        </div>
                         <p>
                             <%=result.description%>
                         </p>
@@ -38,7 +63,7 @@
                             <div class="comment-box">
                                 <div class="comment-body">
                                     <strong>
-                                        <%=comment.author%>
+                                        <%=comment.author.username%>
                                     </strong>
                                     <p class="pull-right">10 days ago</p>
                                     <span class="tip tip-left"></span>
