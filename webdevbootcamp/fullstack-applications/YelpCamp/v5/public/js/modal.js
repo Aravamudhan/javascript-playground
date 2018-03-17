@@ -12,6 +12,6 @@ function setupFailureModal() {
     }
 }
 
-function openModal() {
+function openLoginModal() {
     modal.style.display = "block";
 }

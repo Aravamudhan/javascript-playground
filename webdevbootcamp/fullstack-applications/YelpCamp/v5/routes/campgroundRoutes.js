@@ -84,13 +84,16 @@ function editCampground(req, res) {
 }
 
 function deleteCampground(req, res) {
-    Campground.findByIdAndRemove(req.params.id, (err) => {
-        if (err) {
+    let id = req.params.id
+    Campground.findById(id, (err, result) => {
+        if (err || !result) {
             console.log("Error finding campground with id", id);
             res.redirect("/error");
         } else {
+            result.remove();
             res.redirect("/campgrounds");
         }
+
     });
 }
 

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Post = require("./post");
 // USER
 const userSchema = new mongoose.Schema({
     name:String,
@@ -10,6 +11,18 @@ const userSchema = new mongoose.Schema({
                 ref: "Post"
             }
         ]
+});
+userSchema.post("remove",function(doc){
+    console.log("%s has been removed*******",doc.name);
+    doc.posts.forEach(post=>{
+        Post.findByIdAndRemove(post,err=>{
+            if(err){
+                console.log("A post is not removed");
+            }else{
+                console.log("Post is removed");
+            }
+        });
+    });
 });
 let User = mongoose.model("User",userSchema);
 module.exports = User;

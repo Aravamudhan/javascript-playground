@@ -59,22 +59,6 @@
                         </div>
                     </div>
                     <div class="comment-container row">
-                        <% result.comments.forEach(comment => { %>
-                            <div class="comment-box">
-                                <div class="comment-body">
-                                    <strong>
-                                        <%=comment.author.username%>
-                                    </strong>
-                                    <p class="pull-right">10 days ago</p>
-                                    <span class="tip tip-left"></span>
-                                    <div class="message">
-                                        <span>
-                                            <%=comment.text%>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <% }) %>
                     </div>
                 </div>
             </div>
@@ -101,13 +85,15 @@
     <!-- The pollyfills are added for browsers that have not implemented a feature yet -->
     <!-- I have used this here to use the 'prepend' -->
     <script src="/js/pollyfills.js"></script>
-    <script src="/js/ajax.js"></script>
-    <script src="/js/comments.js"></script>
+    <script src="/js/tools.js"></script>
+    <script src="/js/commentUtility.js"></script>
     <script src="/js/modal.js">
     </script>
     <script>
         window.onload = function () {
+            getAllComments();
             setupComments();
+            setupCommentButtons();
             setupFailureModal();
         }
     </script>
