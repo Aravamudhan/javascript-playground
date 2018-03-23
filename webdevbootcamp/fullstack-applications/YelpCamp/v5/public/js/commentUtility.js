@@ -39,16 +39,20 @@ function createCommentBlock(commentObj) {
         let commentContainer = document.querySelector('.comment-container');
         let commentBox = document.createElement('div');
         commentBox.classList.add('comment-box');
+        let editButton = "<a class='btn btn-warning edit-comment-btn'>Edit</a>";
+        let deleteButton = "<a class='btn btn-danger delete-comment-btn'>Delete</a>";
+        let updateButton = "<a class='btn btn-primary update-comment-btn'>Update</a>";
+        let cancelButton = "<a class='btn btn-warning cancel-comment-btn'>Cancel</a>";
         commentBox.innerHTML =
             `<div class="comment-body">
                 <span class="tip tip-left"></span>
                 <div class="message">
                     <div class="message-info">
                         <strong>${authorName}</strong>
-                        <a class="btn btn-warning edit-comment-btn">Edit</a>
-                        <a class="btn btn-danger delete-comment-btn">Delete</a>
-                        <a class="btn btn-primary update-comment-btn">Update</a>
-                        <a class="btn btn-warning cancel-comment-btn">Cancel</a>
+                        ${editButton}
+                        ${deleteButton}
+                        ${updateButton}
+                        ${cancelButton}
                         <p class="pull-right">10 days ago</p>
                     </div>
                     <span class="display-comment" data-id="${commentObj._id}">${commentObj.text}</span>
@@ -72,7 +76,8 @@ function setupCommentButtons() {
                 displayArea.style.display = "none";
             }
         });
-        editArea.innerHTML = displayArea.innerHTML;
+        editArea.value = displayArea.innerHTML;
+        console.log(editArea.innerHTML, displayArea.innerHTML);
         let deleteButton = this.nextElementSibling;
         // Enable the update button
         let updateButton = this.nextElementSibling.nextElementSibling;
@@ -157,7 +162,6 @@ function deleteComment(displayArea) {
         _id: displayArea.dataset.id
     }
     deleteRequest(window.location.href + '/comments', JSON.stringify(commentObj), data => {
-        console.log(data);
         let commentBody = displayArea.parentNode.parentNode;
         let commentBox = commentBody.parentNode;
         commentBox.removeChild(commentBody);

@@ -148,8 +148,37 @@ function deleteComment(req, res) {
         }
     });
 }
+
+function checkAuthorizationComment(req, res, next) {
+    if (req.isAuthenticated()) {
+        let commentId = req.body._id;
+        Comment.findById(commentId, (err, commentResult) => {
+            if (err) {
+                let error = "Error finding comment";
+                console.log("Error finding campground with id", id);
+                res.status(404).json({
+                    error
+                });
+            } else {
+                if (commentResult && commentResult.author.username == req.user.username) {
+                    next();
+                } else {
+                    let error = "You do not have the permission to access this resource. You are not the owner of this resource.";
+                    res.status(403).json({
+                        error
+                    });
+                }
+            }
+        });
+    } else {
+        let error = "You are not authenticated to perform this operation";
+        res.status(401).json({
+            error
+        });
+    }
+}
 router.post("/", loginMiddleWare.isLoggedInAjax, createComment);
-router.put("/", loginMiddleWare.isLoggedInAjax, updateComment);
+router.put("/", checkAuthorizationComment, updateComment);
 router.get("/", getComments);
-router.delete("/", deleteComment);
+router.delete("/", checkAuthorizationComment, deleteComment);
 module.exports = router;
