@@ -6,3 +6,4 @@
 5. Adding edit and delete options for campgrounds
 6. Adding authentication mecahnism to the edit and delete routes(securing the resources so that only
 the owner can modify them)
+7. Adding authentication to the comment routes that edit and delete comments

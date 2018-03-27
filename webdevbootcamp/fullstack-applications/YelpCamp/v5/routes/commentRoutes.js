@@ -56,7 +56,7 @@ function getComments(req, res) {
             };
             res.status(404).json(commentResponse);
         } else {
-            let commentResult = campground.comments.map(comment => {
+            let comments = campground.comments.map(comment => {
                 let result = {
                     author: {
                         username: comment.author.username
@@ -66,7 +66,17 @@ function getComments(req, res) {
                 };
                 return result;
             });
-            res.status(200).json(commentResult);
+            // We are sending the current logged-in user's username along with the response
+            // This is needed to check the ownership and enable/disable the edit,update buttons of the comments
+            let currentUser;
+            if (res.locals.currentUser) {
+                currentUser = res.locals.currentUser.username;
+            }
+            let responseObj = {
+                comments,
+                currentUser
+            }
+            res.status(200).json(responseObj);
         }
     });
 }

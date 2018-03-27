@@ -1,0 +1,19 @@
+{
+  "name": "jwt-auth",
+  "version": "1.0.0",
+  "description": "Adding authentication using jwt tokens",
+  "main": "server.js",
+  "scripts": {
+    "start":"server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "amudhan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.11",
+    "morgan": "^1.9.0"
+  }
+}

@@ -1,6 +1,11 @@
+let currentLoggedInUser;
+
 function getAllComments() {
     getRequest(window.location.href + "/comments", (response) => {
-        JSON.parse(response).forEach(function (obj) {
+        let responseObject = JSON.parse(response);
+        let comments = responseObject.comments;
+        currentLoggedInUser = responseObject.currentUser;
+        comments.forEach(function (obj) {
             createCommentBlock(obj);
         });
     }, (error) => {
@@ -39,10 +44,18 @@ function createCommentBlock(commentObj) {
         let commentContainer = document.querySelector('.comment-container');
         let commentBox = document.createElement('div');
         commentBox.classList.add('comment-box');
-        let editButton = "<a class='btn btn-warning edit-comment-btn'>Edit</a>";
-        let deleteButton = "<a class='btn btn-danger delete-comment-btn'>Delete</a>";
-        let updateButton = "<a class='btn btn-primary update-comment-btn'>Update</a>";
-        let cancelButton = "<a class='btn btn-warning cancel-comment-btn'>Cancel</a>";
+        let editButton = "",
+            deleteButton = "",
+            updateButton = "",
+            cancelButton = "";
+        // Enabling the buttons only when the current logged-in user matches 
+        // the author name of a particular comment
+        if (currentLoggedInUser && currentLoggedInUser == authorName) {
+            editButton = "<a class='btn btn-warning edit-comment-btn'>Edit</a>";
+            deleteButton = "<a class='btn btn-danger delete-comment-btn'>Delete</a>";
+            updateButton = "<a class='btn btn-primary update-comment-btn'>Update</a>";
+            cancelButton = "<a class='btn btn-warning cancel-comment-btn'>Cancel</a>";
+        }
         commentBox.innerHTML =
             `<div class="comment-body">
                 <span class="tip tip-left"></span>
