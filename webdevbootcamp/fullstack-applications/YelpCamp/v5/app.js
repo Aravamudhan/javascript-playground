@@ -11,7 +11,9 @@ const express = require('express'),
     User = require('./models/user'),
     databaseHost = properties.get("db.host"),
     databaseName = properties.get("db.database"),
-    loginMiddleWare = require("./routes/loginUtility"),
+    // When a directory is "required", the index.js is picked up from the directory automatically
+    // index.js is a special name
+    middlewares = require("./middleware"),
     methodOverride = require('method-override');
 
 app.set("view engine", "ejs");
@@ -31,7 +33,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-app.use(loginMiddleWare.setLoggedInUser);
+app.use(middlewares.setLoggedInUser);
 // Auth boiler plate ends
 mongoose.connect(databaseHost + databaseName);
 app.use(methodOverride("_method"));

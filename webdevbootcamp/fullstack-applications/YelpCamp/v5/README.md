@@ -7,3 +7,5 @@
 6. Adding authentication mecahnism to the edit and delete routes(securing the resources so that only
 the owner can modify them)
 7. Adding authentication to the comment routes that edit and delete comments
+8. Disabling the edit,delete,update and cancel buttons for the individual comments for the non-owners of those comments.
+9. Middlewares in common files

@@ -2,7 +2,7 @@ const express = require('express'),
     Campground = require('../models/campground'),
     Comment = require('../models/comment'),
     router = express.Router(),
-    loginMiddleWare = require("./loginUtility");
+    middlewares = require("../middleware");
 
 function renderCampgrounds(req, res) {
     Campground.find({}, (err, campData) => {
@@ -97,36 +97,11 @@ function deleteCampground(req, res) {
     });
 }
 
-function checkAuthorization(req, res, next) {
-    if (req.isAuthenticated()) {
-        let id = req.params.id;
-        Campground.findById(id, (err, campground) => {
-            if (err) {
-                let errorMessage = "Error finding campground";
-                console.log("Error finding campground with id", id);
-                res.redirect("/error?errorMessage=" + errorMessage);
-            } else {
-                // The campground.author.id is not a string. To compare that with user._id equals method
-                // has to be used
-                if (campground && campground.author.id.equals(req.user._id)) {
-                    next();
-                } else {
-                    let errorMessage = "You do not have the permission to access this resource. You are not the owner of this resource.";
-                    res.redirect("/error?errorMessage=" + errorMessage);
-                }
-            }
-        });
-    } else {
-        let errorMessage = "You are not authenticated to perform this operation";
-        res.redirect("/error?errorMessage=" + errorMessage);
-    }
-}
-
 router.get("/", renderCampgrounds);
-router.post("/", loginMiddleWare.isLoggedInPage, createCampground);
-router.get("/new", loginMiddleWare.isLoggedInPage, renderCreateCampground);
+router.post("/", middlewares.isLoggedInPage, createCampground);
+router.get("/new", middlewares.isLoggedInPage, renderCreateCampground);
 router.get("/:id", renderCampground);
-router.get("/:id/edit", checkAuthorization, renderEditCampground);
-router.put("/:id", checkAuthorization, editCampground);
-router.delete("/:id", checkAuthorization, deleteCampground);
+router.get("/:id/edit", middlewares.checkCampgroundAuthorization, renderEditCampground);
+router.put("/:id", middlewares.checkCampgroundAuthorization, editCampground);
+router.delete("/:id", middlewares.checkCampgroundAuthorization, deleteCampground);
 module.exports = router;
