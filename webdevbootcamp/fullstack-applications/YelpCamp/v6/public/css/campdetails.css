@@ -1,0 +1,96 @@
+.tip {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    background: transparent;
+    border: 10px solid #ccc;
+}
+
+.tip-left {
+    top: 10px;
+    left: -25px;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.comment-create-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment-box .comment-body {
+    position: relative;
+    height: auto;
+    margin: 20px 10px;
+    padding: 5px;
+    background-color: #DADADA;
+    border-radius: 3px;
+    border: 5px solid #ccc;
+}
+
+.comment-body .message {
+    min-height: 30px;
+    border-radius: 3px;
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #797979;
+}
+
+.comment-body .message-info {
+    margin-bottom: 1em;
+}
+
+.comment-body .message-info .btn {
+    width: 60px;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+}
+
+.comment-body .message-info .btn.update-comment-btn {
+    display: none;
+}
+
+.comment-body .message-info .btn.cancel-comment-btn {
+    display: none;
+}
+
+.comment-body .message .edit-comment {
+    display: none;
+}
+
+#comment-area {
+    margin-right: 1em;
+}
+
+.campground-detail {
+    padding: 0;
+}
+
+.campground-detail .campground-image {
+    width: 100%;
+}
+
+.campground-detail-header {
+    display: flex;
+    align-items: center;
+    flex-basis: 100%;
+    max-height: 70px;
+}
+
+.campground-detail-header div {
+    flex: 1;
+    max-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.campground-detail-header div .btn {
+    min-height: 30px;
+    min-width: 70px;
+    align-items: center;
+}

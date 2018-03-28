@@ -1,0 +1,100 @@
+<% include layouts/header %>
+    <link rel="stylesheet" href="/css/campdetails.css">
+    <link rel="stylesheet" href="/css/modal.css">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead">YelpCamp</p>
+                <div class="list-group">
+                    <li class="list-group-item">Info 1</li>
+                    <li class="list-group-item">Info 2</li>
+                    <li class="list-group-item">Info 3</li>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail campground-detail" style="padding:0;">
+                    <img class="img-responsive campground-image" src="<%=result.image%>" alt="<%=result.name%>">
+                    <div class="caption">
+                        <p class="pull-left">Submitted by
+                            <i>
+                                <strong>
+                                    <%=result.author.username%>
+                                </strong>
+                            </i>
+                        </p>
+                        <h4 class="pull-right">$10/night</h4>
+                        <div class="page-header campground-detail-header">
+                            <div>
+                                <!-- Showing the button only if it is necessary -->
+                                <%if(currentUser && result && result.author.id.equals(currentUser._id)){%>
+                                    <a href="<%=result._id%>/edit" class="btn btn-warning">Edit</a>
+                                    <%}%>
+                            </div>
+                            <div>
+                                <a href="/campgrounds">
+                                    <h3>
+                                        <%=result.name%>
+                                    </h3>
+                                </a>
+                            </div>
+                            <div>
+                                <%if(currentUser && result && result.author.id.equals(currentUser._id)){%>
+                                    <form onsubmit="return confirm('Are you really want to delete this campground ? Once deleted every thing related to the campground, from images to the comments, will be gone. You will not be able to retrieve it back.')"
+                                        action="/campgrounds/<%=result._id%>?_method=DELETE" method="POST">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                    <%}%>
+                            </div>
+                        </div>
+                        <p>
+                            <%=result.description%>
+                        </p>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="comment-create-block">
+                        <textarea class="form-control .form-control-lg" id="comment-area" rows="3" placeholder="Add your review"></textarea>
+                        <div>
+                            <button class="btn btn-primary" id="comment-add">Submit review</button>
+                        </div>
+                    </div>
+                    <div class="comment-container row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Failure modal -->
+    <div id="failure-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <p class="text-center">Post review</p>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Huh! You can't post reviews if you are not logged in!</p>
+                <div class="modal-login-info">
+                    <a href="/login" class="btn btn-primary modal-btn">Login</a>
+                    <a href="/register" class="btn btn-primary modal-btn">Register</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- The pollyfills are added for browsers that have not implemented a feature yet -->
+    <!-- I have used this here to use the 'prepend' -->
+    <script src="/js/pollyfills.js"></script>
+    <script src="/js/tools.js"></script>
+    <script src="/js/commentUtility.js"></script>
+    <script src="/js/modal.js">
+    </script>
+    <script>
+        window.onload = function () {
+            getAllComments();
+            setupComments();
+            setupCommentButtons();
+            setupFailureModal();
+        }
+    </script>
+    <% include layouts/footer %>
