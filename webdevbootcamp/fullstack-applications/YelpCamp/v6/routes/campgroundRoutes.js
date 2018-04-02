@@ -20,6 +20,7 @@ function renderCampgrounds(req, res) {
 function createCampground(req, res) {
     let camp = {
         name: req.body.campName,
+        price: req.body.campPrice,
         image: req.body.campImage,
         description: req.body.campDescription,
         author: {

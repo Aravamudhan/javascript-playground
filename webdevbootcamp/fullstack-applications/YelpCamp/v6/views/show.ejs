@@ -22,7 +22,7 @@
                                 </strong>
                             </i>
                         </p>
-                        <h4 class="pull-right">$10/night</h4>
+                        <h4 class="pull-right"><%=result.price%></h4>
                         <div class="page-header campground-detail-header">
                             <div>
                                 <!-- Showing the button only if it is necessary -->
@@ -31,7 +31,7 @@
                                     <%}%>
                             </div>
                             <div>
-                                <a href="/campgrounds">
+                                <a href="/campgrounds/<%=result._id%>">
                                     <h3>
                                         <%=result.name%>
                                     </h3>
