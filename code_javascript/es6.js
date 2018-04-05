@@ -975,6 +975,135 @@ function iteratorsTest() {
 		console.log(res);
 	}
 }
+
+function generatorTest() {
+	{
+		console.log("Generating random numbers.....");
+
+		function* getRandomNumber() {
+			while (true) {
+				let num = Math.floor(Math.random() * 1000);
+				yield num;
+			}
+		}
+		let randomNumberGenerator = getRandomNumber();
+		console.log(randomNumberGenerator.next().value);
+		console.log(randomNumberGenerator.next().value);
+		console.log(randomNumberGenerator.next().value);
+	} {
+		console.log("Values to array.....");
+
+		function* foo() {
+			let arr = [yield 1, yield 2, yield 3];
+			console.log(arr);
+		}
+		let it = foo();
+		let v1 = it.next();
+		let v2 = it.next(v1.value * 10);
+		let v3 = it.next(v2.value * 10);
+		let v4 = it.next(v3.value * 10);
+	} {
+		console.log("yield delegation.....");
+
+		function* fooBar() {
+			yield 10;
+		}
+
+		function* foo() {
+			yield* fooBar();
+			yield 20;
+			yield 30;
+		}
+
+		function* bar() {
+			yield* foo();
+			return "Completed"; // This will be returned as part of the final it.next
+		}
+		let it = bar();
+		let result;
+		result = it.next(); // -> bar -> foo -> foobar
+		console.log(result);
+		result = it.next(); // -> bar -> foo
+		console.log(result);
+		result = it.next(); // -> bar -> foo
+		console.log(result);
+		result = it.next(); // -> bar
+		console.log(result);
+	} {
+		console.log("yielding continously.....");
+
+		function* foo(value) {
+			if (value < 3) {
+				// This steps gets executed continously.
+				// The next() function recursively gets repeated because of yielding a generator
+				value = yield* foo(value + 1);
+			}
+			return value * 2;
+		}
+		let it = foo(1);
+		// Invoking the iterator once, gets the generator started
+		console.log(it.next());
+	} {
+		console.log("Empty initiazation of a generator.....");
+
+		function* foo(value) {
+			console.log("Foo started*****");
+			let x = yield value; // replaced with 200
+			let y = yield x * 10; // replaced with 300
+			let z = yield y * 10; // replaced with 400
+			return z;
+		}
+		let fooIt = foo(); // Not passing any value
+		let val1 = fooIt.next(100); // Get undefined back. Because initialized
+		//  the generator with empty argument. The value 100 is not used
+		console.log(val1);
+		val1 = fooIt.next(200); // gets 2000
+		console.log(val1);
+		val1 = fooIt.next(300); // gets 3000
+		console.log(val1);
+		val1 = fooIt.next(400); // gets 400
+		console.log(val1);
+	} {
+		console.log("Early completion.....");
+		function* foo(value) {
+			try{
+				let x = yield value; 
+				let y = yield x * 10; 
+				let z = yield y * 10; 
+				return z;
+			}finally{
+				// NEVER PUT yield INSIDE FINALLY. IT IS LEGAL. BUT DOES NOT IMMEDIETELY
+				// SEND THE COMPLETED GENERATOR BACK. Defeats the purpose of finally
+				console.log("I am clean up master. I am cleaning up the resources");
+			}
+		}
+		let fooIt = foo(10); 
+		let val1 = fooIt.next(); 
+		console.log(val1);
+		// This cuts of the generator process and completes it
+		// This is forcing the return to be processed at once
+		// This useful when the iterating code is not going to continue and generator
+		// can perform any clean up tasks if they are present
+		val1 = fooIt.return("Completed");
+		console.log(val1);
+	}
+}
+function modulesTest() {
+	{
+		console.log("Modules old style.....");
+		function user(name){
+			function getName() {
+				return name;
+			}
+			return {
+				getName
+			};
+		}
+		let me = user("Bond");
+		let him = user("Dr.No");
+		console.log(me.getName(),"vs",him.getName());
+	}
+}
 // spreadAndGather();
 // defaultValues();
 // destructuring();
@@ -986,4 +1115,6 @@ function iteratorsTest() {
 // arrowFunctions();
 // forOf();
 // symbols();
-iteratorsTest();
+// iteratorsTest();
+// generatorTest();
+modulesTest();
