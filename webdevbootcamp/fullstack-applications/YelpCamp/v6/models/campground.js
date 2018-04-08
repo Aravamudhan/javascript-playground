@@ -15,7 +15,10 @@ const campgroundSchema = new mongoose.Schema({
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
-    }]
+    }],
+    location: String,
+    lat: Number,
+    lng: Number
 });
 // Middleware that gets called after the remove function
 // This is necessary to perform "cascade delete" of a campground

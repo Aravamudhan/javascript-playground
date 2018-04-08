@@ -1,15 +1,16 @@
 <% include layouts/header %>
-    <link rel="stylesheet" href="/css/campdetails.css">
+    <link rel="stylesheet" href="/css/show.css">
     <link rel="stylesheet" href="/css/modal.css">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">YelpCamp</p>
                 <div class="list-group">
-                    <li class="list-group-item">Info 1</li>
+                    <li class="list-group-item active">Info 1</li>
                     <li class="list-group-item">Info 2</li>
                     <li class="list-group-item">Info 3</li>
                 </div>
+                <div id="map"></div>
             </div>
             <div class="col-md-9">
                 <div class="thumbnail campground-detail" style="padding:0;">
@@ -22,7 +23,9 @@
                                 </strong>
                             </i>
                         </p>
-                        <h4 class="pull-right"><%=result.price%></h4>
+                        <h4 class="pull-right">
+                            <%=result.price%>
+                        </h4>
                         <div class="page-header campground-detail-header">
                             <div>
                                 <!-- Showing the button only if it is necessary -->
@@ -97,4 +100,46 @@
             setupFailureModal();
         }
     </script>
+    <script>
+        function initMap() {
+            let latValue = "<%= result.lat %>";
+            let lngValue = "<%= result.lng %>";
+            let lat;
+            let lng;
+            let center = {};
+            if (latValue && latValue.length > 0) {
+                lat = parseFloat(latValue);
+                console.log(lat);
+                center.lat = lat;
+            }
+            if (lngValue && lngValue.length > 0) {
+                lng = parseFloat(lngValue);
+                console.log("in");
+                center.lng = lng;
+            } else {
+                center.lng = 0;
+            }
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: center,
+                scrollwheel: false
+            });
+            var contentString =
+                `
+            <strong><%= result.name %><br />
+            <%= result.location %></strong>
+          `
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            var marker = new google.maps.Marker({
+                position: center,
+                map: map
+            });
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=MAP_API_KEY%>&callback=initMap"></script>
     <% include layouts/footer %>

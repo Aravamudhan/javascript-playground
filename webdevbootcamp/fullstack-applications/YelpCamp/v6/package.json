@@ -6,10 +6,13 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "monitor":"nodemon app.js"
+    "monitor": "nodemon app.js"
   },
-  "nodemonConfig":{
-    "ignore":["views/*","public/*"]
+  "nodemonConfig": {
+    "ignore": [
+      "views/*",
+      "public/*"
+    ]
   },
   "author": "amudhan",
   "license": "ISC",
@@ -21,6 +24,7 @@
     "express-session": "^1.15.6",
     "method-override": "^2.3.10",
     "mongoose": "^5.0.1",
+    "node-geocoder": "^3.22.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.5.0",
