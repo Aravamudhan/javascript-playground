@@ -1,0 +1,32 @@
+<% include layouts/header %>
+    <link rel="stylesheet" href="/css/authPage.css">
+    <div class="body-wrapper">
+        <div id="signin-block">
+            <h1 class="text-center">Sign in</h1>
+            <form action="/login" method="POST">
+                <div class="uname block">
+                    <span id="uname-icon"></span>
+                    <label for="uname">Username</label>
+                    <input type="text" name="username" id="uname" class="uname box" maxlength="80" title="Enter Username" autocomplete="off"
+                    />
+                </div>
+                <div class="pwd block">
+                    <span id="pwd-icon"></span>
+                    <label for="pwd">Password</label>
+                    <input type="password" name="password" id="pwd" class="pwd box" maxlength="80" title="Enter Password" autocomplete="off"
+                    />
+                </div>
+                <div class="submit-block">
+                    <button id="signin" class="signin-button btn btn-primary center-block">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/authPage.js"></script>
+    <script>
+        window.onload = function () {
+            handleLoginBlock();
+        }
+    </script>
+    <% include layouts/footer %>

@@ -1,0 +1,100 @@
+body {
+    background: #159957;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #155799, #159957);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #155799, #159957);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.body-wrapper {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#signin-block,
+#signup-block {
+    padding: 1rem;
+    background-color: whitesmoke;
+    width: 100%;
+    min-width: 400px;
+    max-width: 480px;
+    box-sizing: border-box;
+}
+
+div.block {
+    border-bottom: 1px solid #b7cdd9;
+    height: 5rem;
+    text-align: center;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+}
+
+div.block.highlight {
+    border-bottom: 1px solid #0b8ed6;
+}
+
+div.block label {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    bottom: -30%;
+    z-index: 20;
+    transition: font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+div.block label.top {
+    bottom: -5%;
+    color: gray;
+    font-weight: 100;
+}
+
+div.uname span#uname-icon,
+div.pwd span#pwd-icon {
+    display: inline-block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 1rem;
+}
+
+div.uname span#uname-icon {
+    background: url("/person.svg");
+    background-repeat: no-repeat;
+}
+
+div.pwd span#pwd-icon {
+    background: url("/lock.svg");
+    background-repeat: no-repeat;
+}
+
+input.box {
+    background-color: whitesmoke;
+    border: none;
+    width: 80%;
+    outline: 0;
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    top: -50%;
+    padding: 6% 0 0 0;
+}
+
+.signin-button,
+.signup-button {
+    width: 25%;
+}
+
+.submit-block {
+    padding: 1rem;
+}
+
+.error-block {
+    color: red;
+    width: 100%;
+}
