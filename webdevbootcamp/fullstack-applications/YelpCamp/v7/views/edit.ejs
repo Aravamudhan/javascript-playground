@@ -5,7 +5,7 @@
     </h1>
     <div id="details-block">
         <div id="camp-form">
-            <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST">
+            <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input class="form-control" name="campground[name]" type="text" value="<%=campground.name%>" placeholder="Name" required></input>
                 </div>
@@ -14,7 +14,8 @@
                         required></input>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="campground[image]" type="text" value="<%=campground.image%>" placeholder="Image URL"></input>
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <input class="form-control" name="campground[description]" type="text" value="<%=campground.description%>" placeholder="Description"></input>
@@ -38,5 +39,5 @@
         var campName = "<%= campground.name %>";
     </script>
     <script src="/js/edit.js"></script>
-<% include layouts/footer %>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%=MAP_API_KEY%>&libraries=places&callback=initMap" async defer></script>
+    <% include layouts/footer %>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%=MAP_API_KEY%>&libraries=places&callback=initMap" async defer></script>

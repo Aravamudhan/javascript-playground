@@ -3,7 +3,10 @@ const Comment = require("./comment");
 const campgroundSchema = new mongoose.Schema({
     name: String,
     price: String,
-    image: String,
+    image : {
+        url:String,
+        publicId:String
+    },
     description: String,
     author: {
         id: {

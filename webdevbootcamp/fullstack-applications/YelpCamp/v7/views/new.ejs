@@ -3,7 +3,7 @@
     <h1 style="text-align:center;">Adding new campground</h1>
     <div id="details-block">
         <div id="camp-form">
-            <form action="/campgrounds" method="POST">
+            <form action="/campgrounds" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input class="form-control" name="campName" type="text" placeholder="Name" required></input>
                 </div>
@@ -11,7 +11,8 @@
                     <input class="form-control" name="campLocation" type="text" placeholder="Location" required></input>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="campImage" type="text" placeholder="Image URL"></input>
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <input class="form-control" name="campDescription" type="text" placeholder="Description"></input>
